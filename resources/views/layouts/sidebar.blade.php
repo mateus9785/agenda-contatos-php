@@ -3,13 +3,13 @@
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link" href="/group">
-                    <span data-feather="file"></span>
+                    <i class="fas fa-users"></i>
                     Grupos
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="shopping-cart"></span>
+                <a class="nav-link" href="/contact?group_id=&page=1&search=">
+                    <i class="fas fa-user"></i>
                     Contatos
                 </a>
             </li>

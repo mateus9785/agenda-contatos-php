@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +17,3 @@ use App\Http\Controllers\GroupController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::post('/group', [GroupController::class, 'store'])->name('groups.store');
-Route::put('/group/{id}', [GroupController::class, 'update'])->name('groups.update');
-Route::delete('/group/{id}', [GroupController::class, 'destroy'])->name('groups.destroy');

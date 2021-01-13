@@ -8,7 +8,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use App\Models\Contact;
+use App\Models\Group;
 class RegisterController extends Controller
 {
     /*
@@ -64,10 +65,29 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user = User::create([
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        Contact::create([
+            'user_id' => $user->id,
+            "name" => $data['name'],
+            "is_user_contact" => true,
+        ]);
+
+        $groups = [
+            'Favoritos', 'Colegas de trabalho', 'Família', 
+            'Amigos', 'Contatos de Emergência'
+        ];
+
+        foreach ($groups as $name) {
+            Group::create([
+                'user_id' => $user->id,
+                "name" => $name,
+            ]);
+        }
+
+        return $user;
     }
 }

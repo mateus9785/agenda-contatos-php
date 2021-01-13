@@ -17,7 +17,7 @@ class CreateContactsTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('name_file', 255)->nullable();
-            $table->boolean('is_user_contact');
+            $table->boolean('is_user_contact')->default('0');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

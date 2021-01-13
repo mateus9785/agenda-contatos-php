@@ -16,8 +16,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/index.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/all.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -25,13 +27,8 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top sticky-top shadow">
             <div class="container-fluid">
                 <a href="/" class="navbar-brand d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2"
-                        viewBox="0 0 24 24">
-                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-                        <circle cx="12" cy="13" r="4" />
-                    </svg>
-                    <strong>Agenda de contatos</strong>
+                    <i class="fas fa-users p-2"></i>
+                    <strong class="p-2">Agenda de contatos</strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
@@ -61,8 +58,17 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/group">
+                                        <i class="fas fa-users"></i>
+                                        Grupos
+                                    </a>
+                                    <a class="dropdown-item" href="/contact">
+                                        <i class="fas fa-user"></i>
+                                        Contatos
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                        <i class="fas fa-sign-out-alt"></i>
                                         {{ __('Sair') }}
                                     </a>
 
@@ -77,12 +83,17 @@
             </div>
         </nav>
 
+        <div id="div-message-alert" class="position-fixed alert alert-dismissible fade alert-message show" role="alert">
+            <strong id="message-alert"></strong>
+        </div>
+
         <main class="py-4">
             @yield('content')
         </main>
 
         <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/index.js') }}" defer></script>
     </div>
 </body>
 

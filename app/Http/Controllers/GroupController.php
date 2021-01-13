@@ -4,48 +4,72 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $groups = json_encode(Group::paginate(10));
+        $user_id = Auth::user()->id;
+        $per_page = $request->per_page ?? 10;
+        $groups = Group::where('user_id', $user_id)
+            ->orderBy('name','ASC')
+            ->paginate($per_page);
 
-        return view('group.index', ['response' => json_decode($groups)]);
+        return view('group', ['groups' => $groups]);
     }
 
     public function store(Request $request)
     {
-        $group = Group::create($request->all());
+        $user_id = Auth::user()->id;
+
+        $group = Group::create([
+            'user_id' => $user_id,
+            "name" => $request->name
+        ]);
+
         return response($group, 200);
     } 
 
-    public function update(Request $request, Group $group)
+    public function update(Request $request, int $id)
     {
-        $group->update($request->all());
+        $user_id = Auth::user()->id;
+        $group = Group::where([
+            'id' => $id,
+            'user_id' => $user_id
+        ])->first();
+
+        if(!$group)
+            return response("Grupo não encontrado", 404);
+
+
+        $group->update([
+            "name" => $request->name
+        ]);
 
         return response($group, 200);
     }
 
-    public function destroy(Group $group)
+    public function destroy(int $id)
     {
+        $user_id = Auth::user()->id;
+        $group = Group::where([
+            'id' => $id,
+            'user_id' => $user_id
+        ])->first();
+
+        if(!$group)
+            return response("Grupo não encontrado", 404);
+
         $group->delete();
 
         return response([], 200);
     }
 }
+
