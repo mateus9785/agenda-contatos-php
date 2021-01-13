@@ -18,4 +18,12 @@ class Contact extends Model
     {
         return $this->hasMany('App\Models\ContactGroup');
     }
+
+    public function scopeFindOne($query, int $id, int $user_id)
+    {
+        return $query->where([
+            'id' => $id,
+            'user_id' => $user_id
+        ])->first();
+    }
 }

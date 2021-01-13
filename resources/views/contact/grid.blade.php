@@ -7,20 +7,6 @@
 <script>
     var baseUrl = '<?php echo env('APP_URL'); ?>';
 
-    function requestAjax(method, url, data, sucessMethod) {
-        $.ajax({
-            method,
-            url,
-            data,
-            success: function(response) {
-                sucessMethod(response);
-            },
-            error: function(jqXHR, status, thrown) {
-                alert('Ocorreu um erro, tente novamente mais tarde.');
-            },
-        });
-    }
-
     function deleteContact(id) {
         let data = {
             _token: $("[name='_token']").val()
@@ -38,7 +24,7 @@
     function changeGroup(element, page) {
         let group_id = $(element).val();
         var page = "<?php echo $page; ?>";
-        var search = "<?php echo $search; ?>";
+        var search = $("#search").val();
 
         window.location.href = `${baseUrl}/contact?group_id=${group_id}&page=${page}&search=${search}`;
     }

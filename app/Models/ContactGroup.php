@@ -13,4 +13,11 @@ class ContactGroup extends Model
     {
         return $this->belongsTo('App\Models\Contact');
     }
+
+    public function scopeJoinGroup($query)
+    {
+        return $query->join('groups', function($join) {
+            $join->on('contact_groups.group_id', '=', 'groups.id');
+        });
+    }
 }

@@ -66,18 +66,14 @@ class ContactController extends Controller
         }, json_decode($provinces_ibge)->geonames);
 
         if ($id) {
-            $contact = Contact::where([
-                'contacts.id' => $id,
-                'contacts.user_id' => $user_id
-            ])->first();
+            $contact = Contact::findOne($id, $user_id);
 
             if (!$contact)
                 return response("Contato não encontrado", 404);
 
             $contact_groups = ContactGroup::where('contact_id', $contact->id)
-                ->join('groups', function($join) {
-                    $join->on('contact_groups.group_id', '=', 'groups.id');
-                })->get();
+                ->joinGroup()
+                ->get();
             
             $phones = Phone::where('contact_id', $contact->id)->get();
             $addresses = Address::where('contact_id', $contact->id)->get();
@@ -133,16 +129,7 @@ class ContactController extends Controller
         }
 
         foreach ($request->addresses as $address) {
-            Address::create([
-                'street' => $address["street"],
-                'neighborhood' => $address["neighborhood"],
-                'city' => $address["city"],
-                'province' => $address["province"],
-                'complement' => $address["complement"],
-                'cep' => $address["cep"],
-                'number' => $address["number"],
-                'contact_id' => $contact->id,
-            ]);
+            Address::register($address, $contact->id);
         }
 
         return response($contact, 200);
@@ -151,10 +138,7 @@ class ContactController extends Controller
     public function update(Request $request, int $id)
     {
         $user_id = Auth::user()->id;
-        $contact = Contact::where([
-            'id' => $id,
-            'user_id' => $user_id
-        ])->first();
+        $contact = Contact::findOne($id, $user_id);
 
         if (!$contact)
             return response("Contato não encontrado", 404);
@@ -187,16 +171,7 @@ class ContactController extends Controller
         Address::where('contact_id', $contact->id)->delete();
 
         foreach ($request->addresses as $address) {
-            Address::create([
-                'street' => $address["street"],
-                'neighborhood' => $address["neighborhood"],
-                'city' => $address["city"],
-                'province' => $address["province"],
-                'complement' => $address["complement"],
-                'cep' => $address["cep"],
-                'number' => $address["number"],
-                'contact_id' => $contact->id,
-            ]);
+            Address::register($address, $contact->id);
         }
 
         return response($contact, 200);
@@ -205,10 +180,7 @@ class ContactController extends Controller
     public function destroy(int $id)
     {
         $user_id = Auth::user()->id;
-        $contact = Contact::where([
-            'id' => $id,
-            'user_id' => $user_id
-        ])->first();
+        $contact = Contact::findOne($id, $user_id);
 
         if (!$contact)
             return response("Contato não encontrado", 404);

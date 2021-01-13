@@ -13,6 +13,11 @@
     }
 
     function saveGroup() {
+        if (!$("#name").val()) {
+            message_alert('Preencha o nome do grupo, por favor', 'alert-warning');
+            return;
+        }
+
         if (idGroupEdited)
             saveEditionGroup()
         else
@@ -56,7 +61,7 @@
     }
 
     function showContacts(id) {
-        window.location.href = `${baseUrl}/contact?/contact?group_id=${id}&page=1&search=`;
+        window.location.href = `${baseUrl}/contact?group_id=${id}&page=1&search=`;
     }
 
 </script>

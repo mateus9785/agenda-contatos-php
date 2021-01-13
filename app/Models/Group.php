@@ -22,4 +22,12 @@ class Group extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function scopeFindOne($query, int $id, int $user_id)
+    {
+        return $query->where([
+            'id' => $id,
+            'user_id' => $user_id
+        ])->first();
+    }
 }

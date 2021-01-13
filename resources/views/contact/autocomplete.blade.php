@@ -22,7 +22,7 @@
 <script>
     function searchContacts(){
         var baseUrl = '<?php echo env('APP_URL '); ?>';
-        var group_id = "<?php echo $search; ?>";
+        var group_id = $("#group").val();
         var page = "<?php echo $page; ?>";
         var search = $("#search").val();
 

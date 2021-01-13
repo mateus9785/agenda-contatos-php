@@ -40,14 +40,10 @@ class GroupController extends Controller
     public function update(Request $request, int $id)
     {
         $user_id = Auth::user()->id;
-        $group = Group::where([
-            'id' => $id,
-            'user_id' => $user_id
-        ])->first();
+        $group = Group::findOne($id, $user_id);
 
         if(!$group)
             return response("Grupo não encontrado", 404);
-
 
         $group->update([
             "name" => $request->name
@@ -59,10 +55,7 @@ class GroupController extends Controller
     public function destroy(int $id)
     {
         $user_id = Auth::user()->id;
-        $group = Group::where([
-            'id' => $id,
-            'user_id' => $user_id
-        ])->first();
+        $group = Group::findOne($id, $user_id);
 
         if(!$group)
             return response("Grupo não encontrado", 404);
