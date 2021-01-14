@@ -23,6 +23,7 @@ Route::get('/', function () { return view('welcome'); });
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/not-found', function () { return view('not-found'); })->name('not-found');
 
 Route::get('/group', [GroupController::class, 'index'])->name('groups.index');
 Route::post('/group', [GroupController::class, 'store'])->name('groups.store');

@@ -13,17 +13,24 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Frijole&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/all.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="size-all-screen">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top sticky-top shadow">
             <div class="container-fluid">
                 <a href="/" class="navbar-brand d-flex align-items-center">
@@ -82,12 +89,12 @@
                 </div>
             </div>
         </nav>
-
+        
         <div id="div-message-alert" class="position-fixed alert alert-dismissible fade alert-message show" role="alert">
             <strong id="message-alert"></strong>
         </div>
 
-        <main class="py-4">
+        <main class="size-all-screen">
             @yield('content')
         </main>
 

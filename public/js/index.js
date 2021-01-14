@@ -14,10 +14,33 @@ function requestAjax(method, url, data, sucessMethod) {
         success: function(response) {
             sucessMethod(response);
         },
-        error: function() {
-            message_alert('Ocorreu um erro, tente novamente mais tarde.', 'alert-danger');
+        error: function(response) {
+            let statusClass = statusHttpClassAlert(response.status)
+            if(hasErrors(response))
+                for (let [_, message] of Object.entries(response.responseJSON.errors)) {
+                    message_alert(message, statusClass);
+                }
+            else 
+                message_alert('Ocorreu um erro, tente novamente mais tarde.', statusClass);
         },
     });
+}
+
+function hasErrors(response){
+    return response && response.responseJSON && response.responseJSON.errors;
+}
+
+function statusHttpClassAlert(status){
+    if(status < 200)
+        return 'alert-info';
+    if(status < 300)
+        return 'alert-success';
+    if(status < 400)
+        return 'alert-primary';
+    if(status < 500)
+        return 'alert-warning';
+   
+    return 'alert-danger';
 }
 
 function maskCep(value) {

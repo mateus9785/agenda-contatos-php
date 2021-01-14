@@ -1,55 +1,10 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{{ asset('font-awesome/css/all.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/index.css') }}" rel="stylesheet">
-    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <title>Agenda de contatos</title>
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-            <a href="/" class="navbar-brand d-flex align-items-center">
-                <i class="fas fa-users p-2"></i>
-                <strong class="p-2">Agenda de contatos</strong>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    @if (Route::has('login'))
-                        @auth
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/home') }}">Home</a>
-                            </li>
-                        @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">Login</a>
-                            </li>
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">Cadastrar</a>
-                                </li>
-                            @endif
-                        @endauth
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </nav>
+@section('content')
 
     <main class="container">
-        <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-            <div class="p-lg-5 mx-auto my-5 image-banner">
+        <div class="position-relative overflow-hidden p-3 text-center bg-light">
+            <div class="mx-auto image-banner">
                 <div class="text-banner">
                     <h1 class="fw-normal">Organize seus contatos de forma rápida e fácil!</h1>
                     <p class="lead fw-normal">Tenha mais liberdade, rapidez e segurança para organizar seus contatos em
@@ -111,10 +66,7 @@
                 </div>
             </div>
         </div>
-
-        @include('layouts.footer')
     </main>
-    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-</body>
 
-</html>
+    @include('layouts.footer')
+@endsection

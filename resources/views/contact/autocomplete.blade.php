@@ -63,7 +63,7 @@
         })
     }
 
-    var contacts_names = @json($contacts_names);
+    var contacts_names = @json($all_contacts).map(contact => contact.name);
 
     autocomplete(contacts_names);
 

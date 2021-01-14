@@ -3,66 +3,69 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Group\IndexGroupRequest;
+use App\Http\Requests\Group\StoreGroupRequest;
+use App\Http\Requests\Group\UpdateGroupRequest;
+use App\Http\Services\GroupServiceInterface;
 
 class GroupController extends Controller
 {
 
-    public function __construct()
+    public function __construct(GroupServiceInterface $groupService)
     {
         $this->middleware('auth');
+        $this->groupService = $groupService;
     }
 
-    public function index(Request $request)
+    public function index(IndexGroupRequest $request)
     {
-        $user_id = Auth::user()->id;
-        $per_page = $request->per_page ?? 10;
-        $groups = Group::where('user_id', $user_id)
-            ->orderBy('name','ASC')
-            ->paginate($per_page);
+        try {
+            $request->validated();
 
-        return view('group', ['groups' => $groups]);
+            $groups = $this->groupService->index($request->per_page);
+
+            return view('group', ['groups' => $groups]);
+        } catch (\Throwable $exception) {
+            return response("Ocorreu um erro ao realizar a opereção", 500);
+        }
     }
 
-    public function store(Request $request)
+    public function store(StoreGroupRequest $request)
     {
-        $user_id = Auth::user()->id;
+        try {
+            $request->validated();
 
-        $group = Group::create([
-            'user_id' => $user_id,
-            "name" => $request->name
-        ]);
+            $group = $this->groupService->store($request->name);
 
-        return response($group, 200);
+            return response($group, 200);
+        } catch (\Throwable $exception) {
+            return response("Ocorreu um erro ao realizar a opereção", 500);
+        }
     } 
 
-    public function update(Request $request, int $id)
+    public function update(UpdateGroupRequest $request, int $id)
     {
-        $user_id = Auth::user()->id;
-        $group = Group::findOne($id, $user_id);
+        try {
+            $request->validated();
 
-        if(!$group)
-            return response("Grupo não encontrado", 404);
+            $group = $this->groupService->update($id, $request->name);
 
-        $group->update([
-            "name" => $request->name
-        ]);
-
-        return response($group, 200);
+            return response($group, 200);
+        } catch (\Throwable $exception) {
+            return response("Ocorreu um erro ao realizar a opereção", 500);
+        }
     }
 
     public function destroy(int $id)
     {
-        $user_id = Auth::user()->id;
-        $group = Group::findOne($id, $user_id);
+        try {
+            $this->groupService->destroy($id);
 
-        if(!$group)
-            return response("Grupo não encontrado", 404);
+            return response([], 200);
 
-        $group->delete();
-
-        return response([], 200);
+        } catch (\Throwable $exception) {
+            return response("Ocorreu um erro ao realizar a opereção", 500);
+        }
     }
 }
 

@@ -2,195 +2,73 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Contact\StoreContactRequest;
+use App\Http\Requests\Contact\UpdateContactRequest;
+use App\Http\Requests\Contact\ShowContactRequest;
+use App\Http\Requests\Contact\IndexContactRequest;
 use App\Models\Contact;
 use App\Models\Phone;
 use App\Models\Address;
 use App\Models\Group;
 use App\Models\ContactGroup;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Http\Services\ContactServiceInterface;
 
 class ContactController extends Controller
 {
-    public function __construct()
+    public function __construct(ContactServiceInterface $contactService)
     {
         $this->middleware('auth');
+        $this->contactService = $contactService;
     }
 
-    public function index(Request $request)
+    public function index(IndexContactRequest $request)
     {
-        $user_id = Auth::user()->id;
-        $group_id = $request->group_id;
-        $search = $request->search;
-        $per_page = $request->per_page ?? 10;
+        $request->validated();
 
-        $query = DB::table('contacts')->where('contacts.user_id', $user_id);
-        if($search)
-            $query->where('contacts.name', 'like', '%'.$search.'%');
+        $response = $this->contactService->index($request->group_id, $request->search, $request->per_page);
 
-        if($group_id)
-            $query->join('contact_groups', function($join) use ($group_id) {
-                $join->on('contacts.id', '=', 'contact_groups.contact_id')
-                    ->where('contact_groups.group_id', $group_id);
-            });
-        
-        $contacts = $query->orderBy('name', 'ASC')
-            ->paginate($per_page);
-
-        $groups = Group::where('user_id', $user_id)
-            ->orderBy('name', 'ASC')
-            ->get();
-
-        $contacts_names =  Contact::pluck('name');
-
-        return view('contact.grid', [
-            'contacts' => $contacts,
-            'groups' => $groups,
-            'contacts_names' => $contacts_names
-        ]);
+        return view('contact.grid', $response);
     }
 
-    public function show(Request $request)
+    public function show(ShowContactRequest $request)
     {
-        $id = $request->id;
-        $user_id = Auth::user()->id;
+        $request->validated();
 
-        $groups = Group::where('user_id', $user_id)
-            ->orderBy('name', 'ASC')
-            ->get();
+        $response = $this->contactService->show($request->id);
 
-        $provinces_ibge = file_get_contents('http://www.geonames.org/childrenJSON?geonameId=3469034');
-        $provinces = array_map(function ($province) {
-            return $province->adminCodes1->ISO3166_2;
-        }, json_decode($provinces_ibge)->geonames);
-
-        if ($id) {
-            $contact = Contact::findOne($id, $user_id);
-
-            if (!$contact)
-                return response("Contato não encontrado", 404);
-
-            $contact_groups = ContactGroup::where('contact_id', $contact->id)
-                ->joinGroup()
-                ->get();
-            
-            $phones = Phone::where('contact_id', $contact->id)->get();
-            $addresses = Address::where('contact_id', $contact->id)->get();
-
-            return view('contact.form', [
-                "groups" => $groups,
-                "contact" => [
-                    "data" => $contact,
-                    "contact_groups" => $contact_groups,
-                    "phones" => $phones,
-                    "addresses" => $addresses,
-                ],
-                "provinces" => $provinces
-            ]);
-        }
-
-        return view('contact.form', [
-            "groups" => $groups,
-            "contact" => [
-                "data" => [],
-                "contact_groups" => [],
-                "phones" => [],
-                "addresses" => [],
-            ],
-            "provinces" => $provinces
-        ]);
+        return view('contact.form', $response);
     }
 
-    public function store(Request $request)
+    public function store(StoreContactRequest $request)
     {
-        $user_id = Auth::user()->id;
+        $request->validated();
 
-        $contact = Contact::create([
-            'user_id' => $user_id,
-            "name" => $request->name,
-            "name_file" => $request->name_file,
-            "is_user_contact" => false
-        ]);
-
-        foreach ($request->groups as $id) {
-            ContactGroup::create([
-                'user_id' => $user_id,
-                "contact_id" => $contact->id,
-                "group_id" => $id,
-            ]);
-        }
-
-        foreach ($request->phones as $name) {
-            Phone::create([
-                'name' => $name,
-                "contact_id" => $contact->id,
-            ]);
-        }
-
-        foreach ($request->addresses as $address) {
-            Address::register($address, $contact->id);
-        }
+        $contact = $this->contactService->store($request->name, $request->name_file, 
+                    $request->groups, $request->phones, $request->addresses);
 
         return response($contact, 200);
     }
 
-    public function update(Request $request, int $id)
+    public function update(UpdateContactRequest $request, int $id)
     {
-        $user_id = Auth::user()->id;
-        $contact = Contact::findOne($id, $user_id);
+        $request->validated();
 
-        if (!$contact)
-            return response("Contato não encontrado", 404);
-
-
-        $contact->update([
-            "name" => $request->name,
-            "name_file" => $request->name_file
-        ]);
-
-        ContactGroup::where('contact_id', $contact->id)->delete();
-
-        foreach ($request->groups as $id) {
-            ContactGroup::create([
-                'user_id' => $user_id,
-                "contact_id" => $contact->id,
-                "group_id" => $id,
-            ]);
-        }
-
-        Phone::where('contact_id', $contact->id)->delete();
-
-        foreach ($request->phones as $name) {
-            Phone::create([
-                'name' => $name,
-                "contact_id" => $contact->id,
-            ]);
-        }
-
-        Address::where('contact_id', $contact->id)->delete();
-
-        foreach ($request->addresses as $address) {
-            Address::register($address, $contact->id);
-        }
+        $contact = $this->contactService->update($id, $request->name, $request->name_file, 
+            $request->groups, $request->phones, $request->addresses);
 
         return response($contact, 200);
     }
 
     public function destroy(int $id)
     {
-        $user_id = Auth::user()->id;
-        $contact = Contact::findOne($id, $user_id);
+        try {
+            $this->contactService->destroy($id);
 
-        if (!$contact)
-            return response("Contato não encontrado", 404);
+            return response([], 200);
 
-        ContactGroup::where('contact_id', $contact->id)->delete();
-        Phone::where('contact_id', $contact->id)->delete();
-        Address::where('contact_id', $contact->id)->delete();
-
-        $contact->delete();
-
-        return response([], 200);
+        } catch (\Throwable $exception) {
+            return response("Ocorreu um erro ao realizar a opereção", 500);
+        }
     }
 }

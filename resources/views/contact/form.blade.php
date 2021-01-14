@@ -222,7 +222,7 @@
                             <div class="row g-3 mb-2">
                                 <div class="col-sm-6">
                                     <label for="name" class="form-label">Nome</label>
-                                    <input type="text" class="form-control" id="name" placeholder=""
+                                    <input type="text" class="form-control" id="name" name="name" placeholder=""
                                         value="{{ $contact['data']->name ?? '' }}">
                                 </div>
                                 <div class="col-sm-6">
@@ -325,13 +325,13 @@
                                                     <td>{{ $address->cep }}</td>
                                                     <td>
                                                         <button class="btn btn-success btn-group btn-address"
-                                                            onclick="editeAddress(${i})">
+                                                            onclick="editeAddress({{ $i }})">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
                                                     </td>
                                                     <td>
                                                         <button class="btn btn-danger btn-group btn-address"
-                                                            onclick="deleteAddress(${i})">
+                                                            onclick="deleteAddress({{ $i }})">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
                                                     </td>
