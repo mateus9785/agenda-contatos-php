@@ -2,7 +2,7 @@
     "phpcs.enable": true,
     "phpcs.standard": "PSR12",
     "phpcs.autoConfigSearch": true,
-    "phpcs.composerJsonPath": "/home/kaio/.config/composer/composer.json",
-    "phpcs.executablePath": "/home/kaio/.config/composer/vendor/squizlabs/php_codesniffer/bin/phpcs",
+    "phpcs.composerJsonPath": "/home/atlas/.config/composer/composer.json",
+    "phpcs.executablePath": "/home/atlas/.config/composer/vendor/squizlabs/php_codesniffer/bin/phpcs",
     "phpcs.warningSeverity": 1,
 }

@@ -3,25 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\ContactGroup;
 
 class Group extends Model
 {
-    /**
-     * indica os atributos para definição de dados em massa
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'user_id'];
+    use HasFactory;
 
-    /**
-     * mapeamento do relacionamento com usuário
-     *
-     * @return void
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User');
-    }
+    protected $fillable = ['name', 'user_id'];
 
     public function scopeFindOne($query, int $id, int $user_id)
     {
@@ -29,5 +19,15 @@ class Group extends Model
             'id' => $id,
             'user_id' => $user_id
         ])->first();
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
+    public function contact_groups()
+    {
+        return $this->hasMany(ContactGroup::class);
     }
 }

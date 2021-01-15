@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Auth\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +17,16 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 |
 */
 
-Route::get('/', function () { return view('welcome'); });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/not-found', function () { return view('not-found'); })->name('not-found');
+Route::get('/not-found', function () {
+    return view('not-found');
+})->name('not-found');
 
 Route::get('/group', [GroupController::class, 'index'])->name('groups.index');
 Route::post('/group', [GroupController::class, 'store'])->name('groups.store');

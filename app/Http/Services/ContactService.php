@@ -18,7 +18,7 @@ class ContactService implements ContactServiceInterface
         ContactGroupRepositoryInterface $contactGroupRepository,
         PhoneRepositoryInterface $phoneRepository,
         GroupRepositoryInterface $groupRepository
-    ){
+    ) {
         $this->contactRepository = $contactRepository;
         $this->addressRepository = $addressRepository;
         $this->contactGroupRepository = $contactGroupRepository;
@@ -26,11 +26,11 @@ class ContactService implements ContactServiceInterface
         $this->groupRepository = $groupRepository;
     }
 
-    public function index($group_id, $search, $per_page = 10){
+    public function index($group_id, $search, $per_page = 10)
+    {
         $user_id = Auth::user()->id;
 
-        $contacts = $this->contactRepository->findAllPaginate($user_id, $group_id, 
-            $search, $per_page);
+        $contacts = $this->contactRepository->findAllPaginate($user_id, $group_id, $search, $per_page);
 
         $groups = $this->groupRepository->findAll($user_id);
 
@@ -43,7 +43,8 @@ class ContactService implements ContactServiceInterface
         ];
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $user_id = Auth::user()->id;
 
         $groups = $this->groupRepository->findAll($user_id);
@@ -56,8 +57,9 @@ class ContactService implements ContactServiceInterface
         if ($id) {
             $contact = $this->contactRepository->findById($id, $user_id);
 
-            if (!$contact)
+            if (!$contact) {
                 return response("Contato não encontrado", 404);
+            }
 
             $contact_groups = $this->contactGroupRepository->findAll($contact->id);
             $phones = $this->phoneRepository->findAll($contact->id);
@@ -87,64 +89,81 @@ class ContactService implements ContactServiceInterface
         ];
     }
 
-    public function store($name, $name_file, $groups, $phones, $addresses){
+    public function store($name, $name_file, $groups, $phones, $addresses)
+    {
         $user_id = Auth::user()->id;
 
         $contact = $this->contactRepository->store($user_id, $name, $name_file);
 
-        foreach ($addresses as $address) {
-            $this->addressRepository->store($address, $contact->id);
+        if ($addresses && sizeof($addresses)) {
+            foreach ($addresses as $address) {
+                $this->addressRepository->store($address, $contact->id);
+            }
         }
 
-        foreach ($phones as $name) {
-            $this->phoneRepository->store($name, $contact->id);
+        if ($phones && sizeof($phones)) {
+            foreach ($phones as $name) {
+                $this->phoneRepository->store($name, $contact->id);
+            }
         }
 
-        foreach ($groups as $group_id) {
-            $this->contactGroupRepository->store($user_id, $group_id, $contact->id);
+        if ($groups && sizeof($groups)) {
+            foreach ($groups as $group_id) {
+                $this->contactGroupRepository->store($user_id, $group_id, $contact->id);
+            }
         }
 
         return $contact;
     }
 
-    public function update($id, $name, $name_file, $groups, $phones, $addresses){
+    public function update($id, $name, $name_file, $groups, $phones, $addresses)
+    {
         $user_id = Auth::user()->id;
 
         $contact = $this->contactRepository->findById($id, $user_id);
 
-        if (!$contact)
+        if (!$contact) {
             return response("Contato não encontrado", 404);
-            
+        }
+
         $contact = $this->contactRepository->update($contact, $name, $name_file);
 
         $this->addressRepository->deleteByContactId($contact->id);
 
-        foreach ($addresses as $address) {
-            $this->addressRepository->store($address, $contact->id);
+        if ($addresses && sizeof($addresses)) {
+            foreach ($addresses as $address) {
+                $this->addressRepository->store($address, $contact->id);
+            }
         }
 
         $this->phoneRepository->deleteByContactId($contact->id);
 
-        foreach ($phones as $name) {
-            $this->phoneRepository->store($name, $contact->id);
+        if ($phones && sizeof($phones)) {
+            foreach ($phones as $name) {
+                $this->phoneRepository->store($name, $contact->id);
+            }
         }
 
         $this->contactGroupRepository->deleteByContactId($contact->id);
 
-        foreach ($groups as $group_id) {
-            $this->contactGroupRepository->store($user_id, $group_id, $contact->id);
+        if ($groups && sizeof($groups)) {
+            foreach ($groups as $group_id) {
+                $this->contactGroupRepository->store($user_id, $group_id, $contact->id);
+            }
         }
 
         return $contact;
     }
 
-    public function destroy(int $id){
+    public function destroy(int $id)
+    {
         $user_id = Auth::user()->id;
 
         $contact = $this->contactRepository->findById($id, $user_id);
 
-        if (!$contact)
+        if (!$contact) {
             return response("Contato não encontrado", 404);
+        }
 
         $this->addressRepository->deleteByContactId($contact->id);
         $this->phoneRepository->deleteByContactId($contact->id);

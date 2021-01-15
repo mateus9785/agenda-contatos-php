@@ -6,12 +6,6 @@ use App\Http\Requests\Contact\StoreContactRequest;
 use App\Http\Requests\Contact\UpdateContactRequest;
 use App\Http\Requests\Contact\ShowContactRequest;
 use App\Http\Requests\Contact\IndexContactRequest;
-use App\Models\Contact;
-use App\Models\Phone;
-use App\Models\Address;
-use App\Models\Group;
-use App\Models\ContactGroup;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Services\ContactServiceInterface;
 
 class ContactController extends Controller
@@ -44,8 +38,13 @@ class ContactController extends Controller
     {
         $request->validated();
 
-        $contact = $this->contactService->store($request->name, $request->name_file, 
-                    $request->groups, $request->phones, $request->addresses);
+        $contact = $this->contactService->store(
+            $request->name,
+            $request->name_file,
+            $request->groups,
+            $request->phones,
+            $request->addresses
+        );
 
         return response($contact, 200);
     }
@@ -54,8 +53,14 @@ class ContactController extends Controller
     {
         $request->validated();
 
-        $contact = $this->contactService->update($id, $request->name, $request->name_file, 
-            $request->groups, $request->phones, $request->addresses);
+        $contact = $this->contactService->update(
+            $id,
+            $request->name,
+            $request->name_file,
+            $request->groups,
+            $request->phones,
+            $request->addresses
+        );
 
         return response($contact, 200);
     }

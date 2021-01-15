@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Contact;
 
 class Address extends Model
 {
+    use HasFactory;
 
     protected $fillable = [
         'street', 'neighborhood', 'city', 'province', 'complement', 
@@ -24,5 +27,10 @@ class Address extends Model
             'number' => $address["number"],
             'contact_id' => $contact_id,
         ]);
+    }
+
+    public function contact()
+    {
+        return $this->hasOne(Contact::class);
     }
 }

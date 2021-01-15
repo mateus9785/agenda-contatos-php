@@ -3,21 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\ContactGroup;
+use App\Models\Phone;
+use App\Models\Address;
 
 class Contact extends Model
 {
+    use HasFactory;
 
     protected $fillable = ['name', 'name_file', 'is_user_contact', 'user_id'];
-
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User');
-    }
-
-    public function contact_group()
-    {
-        return $this->hasMany('App\Models\ContactGroup');
-    }
 
     public function scopeFindOne($query, int $id, int $user_id)
     {
@@ -25,5 +21,25 @@ class Contact extends Model
             'id' => $id,
             'user_id' => $user_id
         ])->first();
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
+    public function contact_groups()
+    {
+        return $this->hasMany(ContactGroup::class);
+    }
+
+    public function phones()
+    {
+        return $this->hasMany(Phone::class);
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
     }
 }
