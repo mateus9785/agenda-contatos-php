@@ -19,11 +19,17 @@ class ContactTest extends TestCase
     use RefreshDatabase;
     use WithoutMiddleware;
 
-    public function testContactIndex()
+    protected $faker_contact;
+    protected $contacts;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
+        $faker = Factory::create();
 
         $user = User::factory()->create();
-        Contact::factory(10)->create(['user_id' => $user->id])
+        $this->contacts = Contact::factory(10)->create(['user_id' => $user->id])
             ->each(function ($contact) use ($user) {
                 Address::factory(3)->create(['contact_id' => $contact->id]);
                 Phone::factory(3)->create(['contact_id' => $contact->id]);
@@ -38,119 +44,60 @@ class ContactTest extends TestCase
                     });
             });
 
-        $route = $this->actingAs($user)->withoutMiddleware(Cors::class);
+        $groups = Group::factory(3)->create(['user_id' => $user->id]);
 
-        $response = $route->get('/contact');
+        $this->faker_contact = [
+            'name' => $faker->name,
+            'name_file' => Str::random(10),
+            'groups' => [$groups[0]->id, $groups[1]->id, $groups[2]->id],
+            'phones' => [$faker->phoneNumber, $faker->phoneNumber, $faker->phoneNumber],
+            'addresses' => [
+                [
+                    'street' => $faker->name,
+                    'neighborhood' => $faker->name,
+                    'city' => $faker->city,
+                    'province' => $faker->word,
+                    'complement' => $faker->sentence,
+                    'cep' => $faker->postcode,
+                    'number' => (string) $faker->numberBetween(0, 9999),
+                ]
+            ]
+        ];
+
+        $this->route = $this->actingAs($user)->withoutMiddleware(Cors::class);
+    }
+
+    public function testContactIndex()
+    {
+        $response = $this->route->get('/contact');
 
         $response->assertStatus(200);
     }
 
     public function testContactShow()
     {
-
-        $user = User::factory()->create();
-        $contact = Contact::factory()->create(['user_id' => $user->id]);
-        Group::factory(3)
-            ->create(['user_id' => $user->id])
-            ->each(function ($group) use ($contact, $user) {
-                ContactGroup::factory()->create([
-                    'contact_id' => $contact->id,
-                    'user_id' => $user->id,
-                    'group_id' => $group->id
-                ]);
-            });
-
-        Address::factory(3)->create(['contact_id' => $contact->id]);
-        Phone::factory(3)->create(['contact_id' => $contact->id]);
-
-        $route = $this->actingAs($user)->withoutMiddleware(Cors::class);
-
-        $response = $route->get('/contact/form?id=' . $contact->id);
+        $response = $this->route->get('/contact/form?id=' . $this->contacts[0]->id);
 
         $response->assertStatus(200);
     }
 
     public function testContactStore()
     {
-        $fake = Factory::create();
-
-        $user = User::factory()->create();
-        $groups = Group::factory(3)->create(['user_id' => $user->id]);
-
-        $route = $this->actingAs($user)->withoutMiddleware(Cors::class);
-
-        $response = $route->post('/contact', [
-            'name' => $fake->name,
-            'name_file' => Str::random(10),
-            'groups' => [$groups[0]->id, $groups[1]->id, $groups[2]->id],
-            'phones' => [$fake->phoneNumber, $fake->phoneNumber, $fake->phoneNumber],
-            'addresses' => [
-                [
-                    'street' => $fake->name,
-                    'neighborhood' => $fake->name,
-                    'city' => $fake->city,
-                    'province' => $fake->word,
-                    'complement' => $fake->sentence,
-                    'cep' => $fake->postcode,
-                    'number' => (string) $fake->numberBetween(0, 9999),
-                ]
-            ]
-        ]);
+        $response = $this->route->post('/contact', $this->faker_contact);
 
         $response->assertStatus(200);
     }
 
     public function testContactUpdate()
     {
-        $fake = Factory::create();
-
-        $user = User::factory()->create();
-        $contact = Contact::factory()->create(['user_id' => $user->id]);
-        $groups = Group::factory(3)->create(['user_id' => $user->id]);
-
-        $route = $this->actingAs($user)->withoutMiddleware(Cors::class);
-
-        $response = $route->put('/contact/' . $contact->id, [
-            'name' => $fake->name,
-            'name_file' => Str::random(10),
-            'groups' => [$groups[0]->id, $groups[1]->id, $groups[2]->id],
-            'phones' => [$fake->phoneNumber, $fake->phoneNumber, $fake->phoneNumber],
-            'addresses' => [
-                [
-                    'street' => $fake->name,
-                    'neighborhood' => $fake->name,
-                    'city' => $fake->city,
-                    'province' => $fake->word,
-                    'complement' => $fake->sentence,
-                    'cep' => $fake->postcode,
-                    'number' => (string) $fake->numberBetween(0, 9999),
-                ]
-            ]
-        ]);
+        $response = $this->route->put('/contact/' . $this->contacts[0]->id, $this->faker_contact);
 
         $response->assertStatus(200);
     }
 
     public function testContactDelete()
     {
-        $user = User::factory()->create();
-        $contact = Contact::factory()->create(['user_id' => $user->id]);
-        Group::factory(3)
-            ->create(['user_id' => $user->id])
-            ->each(function ($group) use ($contact, $user) {
-                ContactGroup::factory()->create([
-                    'contact_id' => $contact->id,
-                    'user_id' => $user->id,
-                    'group_id' => $group->id
-                ]);
-            });
-
-        Address::factory(3)->create(['contact_id' => $contact->id]);
-        Phone::factory(3)->create(['contact_id' => $contact->id]);
-
-        $route = $this->actingAs($user)->withoutMiddleware(Cors::class);
-
-        $response = $route->delete('/contact/' . $contact->id);
+        $response = $this->route->delete('/contact/' . $this->contacts[0]->id);
 
         $response->assertStatus(200);
     }
