@@ -15,7 +15,7 @@ class ContactGroup extends Model
 
     public function scopeJoinGroup($query)
     {
-        return $query->join('groups', function($join) {
+        return $query->join('groups', function ($join) {
             $join->on('contact_groups.group_id', '=', 'groups.id');
         });
     }

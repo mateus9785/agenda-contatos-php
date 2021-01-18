@@ -10,14 +10,22 @@ class ResetPasswordTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $user;
+    protected $route;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+
+        $this->route = $this->actingAs($this->user)->withoutMiddleware(Cors::class);
+    }
+
     public function testResetPassword()
     {
-        $user = User::factory()->create();
-
-        $route = $this->actingAs($user)->withoutMiddleware(Cors::class);
-
-        $response = $route->post('/password/email', [
-            'email' => $user->email
+        $response = $this->route->post('/password/email', [
+            'email' => $this->user->email
         ]);
 
         $response->assertStatus(302);

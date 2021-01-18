@@ -15,26 +15,32 @@ class GroupTest extends TestCase
     use RefreshDatabase;
     use WithoutMiddleware;
 
+    protected $faker;
+    protected $groups;
+    protected $route;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->faker = Factory::create();
+        $user = User::factory()->create();
+        $this->groups = Group::factory(10)->create(['user_id' => $user->id]);
+
+        $this->route = $this->actingAs($user)->withoutMiddleware(Cors::class);
+    }
+
     public function testGroupIndex()
     {
-        $user = User::factory()->create();
-        Group::factory(10)->create(['user_id' => $user->id]);
-        $route = $this->actingAs($user)->withoutMiddleware(Cors::class);
-
-        $response = $route->get('/group');
+        $response = $this->route->get('/group');
 
         $response->assertStatus(200);
     }
 
     public function testGroupStore()
     {
-        $fake = Factory::create();
-
-        $user = User::factory()->create();
-        $route = $this->actingAs($user)->withoutMiddleware(Cors::class);
-
-        $response = $route->post('/group', [
-            'name' => $fake->name,
+        $response = $this->route->post('/group', [
+            'name' => $this->faker->name,
         ]);
 
         $response->assertStatus(200);
@@ -42,15 +48,8 @@ class GroupTest extends TestCase
 
     public function testGroupUpdate()
     {
-        $fake = Factory::create();
-
-        $user = User::factory()->create();
-        $group = Group::factory()->create(['user_id' => $user->id]);
-
-        $route = $this->actingAs($user)->withoutMiddleware(Cors::class);
-
-        $response = $route->put('/group/' . $group->id, [
-            'name' => $fake->name,
+        $response = $this->route->put('/group/' . $this->groups[0]->id, [
+            'name' => $this->faker->name,
         ]);
 
         $response->assertStatus(200);
@@ -58,12 +57,7 @@ class GroupTest extends TestCase
 
     public function testGroupDelete()
     {
-        $user = User::factory()->create();
-        $group = Group::factory()->create(['user_id' => $user->id]);
-
-        $route = $this->actingAs($user)->withoutMiddleware(Cors::class);
-
-        $response = $route->delete('/group/' . $group->id);
+        $response = $this->route->delete('/group/' . $this->groups[0]->id);
 
         $response->assertStatus(200);
     }

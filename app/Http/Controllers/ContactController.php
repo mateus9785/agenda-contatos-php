@@ -71,7 +71,6 @@ class ContactController extends Controller
             $this->contactService->destroy($id);
 
             return response([], 200);
-
         } catch (\Throwable $exception) {
             return response("Ocorreu um erro ao realizar a opereção", 500);
         }

@@ -13,13 +13,14 @@ class RegisterService implements RegisterServiceInterface
         UserRepositoryInterface $userRepository,
         GroupRepositoryInterface $groupRepository,
         ContactRepositoryInterface $contactRepository
-    ){
+    ) {
         $this->userRepository = $userRepository;
         $this->groupRepository = $groupRepository;
         $this->contactRepository = $contactRepository;
     }
 
-    public function create($name, $email, $password){
+    public function create($name, $email, $password)
+    {
         $user = $this->userRepository->store($email, $password);
 
         $is_user_contact = true;
@@ -27,7 +28,7 @@ class RegisterService implements RegisterServiceInterface
         $this->contactRepository->store($user->id, $name, null, $is_user_contact);
 
         $default_groups = [
-            'Favoritos', 'Colegas de trabalho', 'Família', 
+            'Favoritos', 'Colegas de trabalho', 'Família',
             'Amigos', 'Contatos de Emergência'
         ];
 

@@ -26,7 +26,7 @@ class Group extends Model
         return $this->hasOne(User::class);
     }
 
-    public function contact_groups()
+    public function contactGroups()
     {
         return $this->hasMany(ContactGroup::class);
     }

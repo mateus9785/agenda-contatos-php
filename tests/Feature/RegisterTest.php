@@ -10,15 +10,24 @@ class RegisterTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $faker;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->faker = Factory::create();
+    }
+
     public function testUserRegister()
     {
-        $fake = Factory::create();
+        $password = $this->faker->password;
 
         $response = $this->withoutMiddleware(Cors::class)->post('/register', [
-            'name' => $fake->name,
-            'email' => $fake->unique()->safeEmail,
-            'password' => $fake->password,
-            'password_confirmation' => $fake->password,
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => $password,
+            'password_confirmation' => $password,
         ]);
 
         $response->assertStatus(302);

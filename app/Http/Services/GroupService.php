@@ -24,7 +24,7 @@ class GroupService implements GroupServiceInterface
     {
         $user_id = Auth::user()->id;
 
-        $this->groupRepository->store($user_id, $name);
+        return $this->groupRepository->store($user_id, $name);
     }
 
     public function update($id, $name)
