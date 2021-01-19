@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 class ResetPasswordController extends Controller
 {
+    use ResetsPasswords;
+
     /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
@@ -20,8 +20,6 @@ class ResetPasswordController extends Controller
     | explore this trait and override any methods you wish to tweak.
     |
     */
-
-    use ResetsPasswords;
 
     /**
      * Where to redirect users after resetting their password.

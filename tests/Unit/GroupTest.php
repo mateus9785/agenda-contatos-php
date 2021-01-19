@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use App\Http\Services\GroupService;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Models\User;
 use Faker\Factory;
+use Tests\TestCase;
+use App\Models\User;
 use App\Models\Group;
+use App\Services\GroupService;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class GroupTest extends TestCase
 {

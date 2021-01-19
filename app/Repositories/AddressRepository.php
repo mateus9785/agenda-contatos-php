@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Repositories;
+namespace App\Repositories;
 
 use App\Models\Address;
-use App\Http\Repositories\AddressRepositoryInterface;
+use App\Repositories\AddressRepositoryInterface;
 
 class AddressRepository implements AddressRepositoryInterface
 {

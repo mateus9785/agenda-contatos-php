@@ -6,11 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class IndexGroupRequest extends FormRequest
 {
-
-    public function authorize()
-    {
-        return true;
-    }
+    /**
+     * Regras de validação dos dados de uma requisição
+     *
+     * @return array
+     */
 
     public function rules()
     {

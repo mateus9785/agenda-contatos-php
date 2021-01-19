@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-use App\Models\Group;
-use App\Models\User;
 use Faker\Factory;
+use Tests\TestCase;
+use App\Models\User;
+use App\Models\Group;
 use Asm89\Stack\Cors;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class GroupTest extends TestCase
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
-use App\Http\Services\RegisterServiceInterface;
-use App\Http\Repositories\UserRepositoryInterface;
-use App\Http\Repositories\GroupRepositoryInterface;
-use App\Http\Repositories\ContactRepositoryInterface;
+use App\Services\RegisterServiceInterface;
+use App\Repositories\UserRepositoryInterface;
+use App\Repositories\GroupRepositoryInterface;
+use App\Repositories\ContactRepositoryInterface;
 
 class RegisterService implements RegisterServiceInterface
 {

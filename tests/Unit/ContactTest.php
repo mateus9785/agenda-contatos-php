@@ -2,13 +2,13 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use App\Http\Services\ContactService;
-use App\Models\User;
-use App\Models\Contact;
-use App\Models\Group;
 use Faker\Factory;
+use Tests\TestCase;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Contact;
 use Illuminate\Support\Str;
+use App\Services\ContactService;
 
 class ContactTest extends TestCase
 {

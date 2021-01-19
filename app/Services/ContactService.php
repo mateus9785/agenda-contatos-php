@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
-use App\Http\Services\ContactServiceInterface;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Repositories\ContactRepositoryInterface;
-use App\Http\Repositories\AddressRepositoryInterface;
-use App\Http\Repositories\ContactGroupRepositoryInterface;
-use App\Http\Repositories\PhoneRepositoryInterface;
-use App\Http\Repositories\GroupRepositoryInterface;
+use App\Services\ContactServiceInterface;
+use App\Repositories\PhoneRepositoryInterface;
+use App\Repositories\GroupRepositoryInterface;
+use App\Repositories\ContactRepositoryInterface;
+use App\Repositories\AddressRepositoryInterface;
+use App\Repositories\ContactGroupRepositoryInterface;
 
 class ContactService implements ContactServiceInterface
 {

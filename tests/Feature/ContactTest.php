@@ -2,17 +2,17 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\User;
-use App\Models\Contact;
-use App\Models\Group;
-use App\Models\ContactGroup;
-use App\Models\Address;
-use App\Models\Phone;
 use Faker\Factory;
 use Tests\TestCase;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Phone;
+use App\Models\Address;
+use App\Models\Contact;
 use Illuminate\Support\Str;
+use App\Models\ContactGroup;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class ContactTest extends TestCase
 {

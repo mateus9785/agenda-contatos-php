@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Repositories;
+namespace App\Repositories;
 
 use App\Models\Group;
-use App\Http\Repositories\GroupRepositoryInterface;
+use App\Repositories\GroupRepositoryInterface;
 
 class GroupRepository implements GroupRepositoryInterface
 {

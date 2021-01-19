@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use App\Http\Services\RegisterService;
 use Faker\Factory;
+use Tests\TestCase;
+use App\Services\RegisterService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RegisterTest extends TestCase

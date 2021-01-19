@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
-use App\Http\Services\GroupServiceInterface;
-use App\Http\Repositories\GroupRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
+use App\Services\GroupServiceInterface;
+use App\Repositories\GroupRepositoryInterface;
 
 class GroupService implements GroupServiceInterface
 {
