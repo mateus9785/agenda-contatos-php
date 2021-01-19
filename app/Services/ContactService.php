@@ -12,6 +12,17 @@ use App\Repositories\ContactGroupRepositoryInterface;
 
 class ContactService implements ContactServiceInterface
 {
+    /**
+     * Cria uma nova intância do service e faz injeção de dependência dos services
+     *
+     * @param App\Repositories\ContactRepositoryInterface $contactService
+     * @param App\Repositories\AddressRepositoryInterface $addressRepository
+     * @param App\Repositories\ContactGroupRepositoryInterface $contactGroupRepository
+     * @param App\Repositories\PhoneRepositoryInterface $phoneRepository
+     * @param App\Repositories\GroupRepositoryInterface $groupRepository
+     * @return void
+     */
+
     public function __construct(
         ContactRepositoryInterface $contactRepository,
         AddressRepositoryInterface $addressRepository,
@@ -25,6 +36,15 @@ class ContactService implements ContactServiceInterface
         $this->phoneRepository = $phoneRepository;
         $this->groupRepository = $groupRepository;
     }
+
+    /**
+     * Método de listar contatos.
+     *
+     * @param int $group_id
+     * @param string $search
+     * @param int $per_page
+     * @return array
+     */
 
     public function index($group_id, $search, $per_page = 10)
     {
@@ -42,6 +62,13 @@ class ContactService implements ContactServiceInterface
             'all_contacts' => $all_contacts
         ];
     }
+
+    /**
+     * Método de buscar contato
+     *
+     * @param int $id
+     * @return array
+     */
 
     public function show($id)
     {
@@ -89,6 +116,17 @@ class ContactService implements ContactServiceInterface
         ];
     }
 
+    /**
+     * Método de cadastrar contato
+     *
+     * @param string $name
+     * @param string $name_file
+     * @param array $groups
+     * @param array $phones
+     * @param array $addresses
+     * @return object
+     */
+
     public function store($name, $name_file, $groups, $phones, $addresses)
     {
         $user_id = Auth::user()->id;
@@ -115,6 +153,18 @@ class ContactService implements ContactServiceInterface
 
         return $contact;
     }
+
+    /**
+     * Método de alterar contato
+     *
+     * @param int $id
+     * @param string $name
+     * @param string $name_file
+     * @param array $groups
+     * @param array $phones
+     * @param array $addresses
+     * @return object
+     */
 
     public function update($id, $name, $name_file, $groups, $phones, $addresses)
     {
@@ -154,6 +204,13 @@ class ContactService implements ContactServiceInterface
 
         return $contact;
     }
+
+    /**
+     * Método de deletar contato.
+     *
+     * @param int $id
+     * @return void
+     */
 
     public function destroy(int $id)
     {

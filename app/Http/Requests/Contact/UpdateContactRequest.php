@@ -7,10 +7,11 @@ use Illuminate\Foundation\Http\FormRequest;
 class UpdateContactRequest extends FormRequest
 {
 
-    public function authorize()
-    {
-        return true;
-    }
+    /**
+     * Mensagens de erro para cada tipo de validação
+     *
+     * @return array
+     */
 
     public function messages()
     {
@@ -32,6 +33,12 @@ class UpdateContactRequest extends FormRequest
             'addresses.*.number.max' => 'O número não pode ter mais de 10 caracteres',
         ];
     }
+
+    /**
+     * Regras de validação dos dados de uma requisição
+     *
+     * @return array
+     */
 
     public function rules()
     {

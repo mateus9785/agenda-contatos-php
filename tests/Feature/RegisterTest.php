@@ -10,7 +10,19 @@ class RegisterTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Objetos para gerar dados fakes
+     *
+     * @var object
+     */
+
     protected $faker;
+
+    /**
+     * Carrega os dados necessários para os testes
+     *
+     * @return void
+     */
 
     public function setUp(): void
     {
@@ -18,6 +30,12 @@ class RegisterTest extends TestCase
 
         $this->faker = Factory::create();
     }
+
+    /**
+     * Testa a rota de cadastro de um usuário verificando se está retornando 302
+     *
+     * @return void
+     */
 
     public function testUserRegister()
     {

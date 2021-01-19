@@ -15,9 +15,32 @@ class GroupTest extends TestCase
     use RefreshDatabase;
     use WithoutMiddleware;
 
+    /**
+     * Objetos para gerar dados fakes
+     *
+     * @var object
+     */
     protected $faker;
+
+    /**
+     * Lista de vários grupos
+     *
+     * @var array
+     */
     protected $groups;
+
+    /**
+     * Objeto para facilitar fazer uma requisição
+     *
+     * @var object
+     */
     protected $route;
+
+    /**
+     * Carrega os dados necessários para os testes
+     *
+     * @return void
+     */
 
     public function setUp(): void
     {
@@ -30,12 +53,24 @@ class GroupTest extends TestCase
         $this->route = $this->actingAs($user)->withoutMiddleware(Cors::class);
     }
 
+    /**
+     * Testa a rota de listagem de grupos, verificando se retornou 200
+     *
+     * @return void
+     */
+
     public function testGroupIndex()
     {
         $response = $this->route->get('/group');
 
         $response->assertStatus(200);
     }
+
+    /**
+     * Testa a rota de cadastro de grupos, verificando se retornou 200
+     *
+     * @return void
+     */
 
     public function testGroupStore()
     {
@@ -46,6 +81,12 @@ class GroupTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * Testa a rota de alteração de grupos, verificando se retornou 200
+     *
+     * @return void
+     */
+
     public function testGroupUpdate()
     {
         $response = $this->route->put('/group/' . $this->groups[0]->id, [
@@ -54,6 +95,12 @@ class GroupTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    /**
+     * Testa a rota de deletar grupos, verificando se retornou 200
+     *
+     * @return void
+     */
 
     public function testGroupDelete()
     {

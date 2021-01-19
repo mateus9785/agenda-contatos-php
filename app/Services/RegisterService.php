@@ -9,6 +9,15 @@ use App\Repositories\ContactRepositoryInterface;
 
 class RegisterService implements RegisterServiceInterface
 {
+    /**
+     * Cria uma nova intância do service e faz injeção de dependência dos services
+     *
+     * @param App\Repositories\UserRepositoryInterface $contactRepository
+     * @param App\Repositories\ContactRepositoryInterface $contactRepository
+     * @param App\Repositories\GroupRepositoryInterface $groupRepository
+     * @return void
+     */
+
     public function __construct(
         UserRepositoryInterface $userRepository,
         GroupRepositoryInterface $groupRepository,
@@ -18,6 +27,15 @@ class RegisterService implements RegisterServiceInterface
         $this->groupRepository = $groupRepository;
         $this->contactRepository = $contactRepository;
     }
+
+    /**
+     * Método de registrar usuário.
+     *
+     * @param string $name
+     * @param string $email
+     * @param string $password
+     * @return object
+     */
 
     public function create($name, $email, $password)
     {

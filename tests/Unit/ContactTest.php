@@ -13,10 +13,43 @@ use App\Services\ContactService;
 class ContactTest extends TestCase
 {
 
+    /**
+     * Objetos para gerar dados fakes
+     *
+     * @var object
+     */
+
     protected $faker;
+
+    /**
+     * Injeção de dependência da service de contatos
+     *
+     * @var object
+     */
+
     protected $contactService;
+
+    /**
+     * Lista de contatos para testes
+     *
+     * @var object
+     */
+
     protected $contacts;
+
+    /**
+     * Dados do contato gerados aleatóriamente para teste
+     *
+     * @var object
+     */
+
     protected $faker_contact;
+
+    /**
+     * Carrega os dados necessários para os testes
+     *
+     * @return void
+     */
 
     public function setUp(): void
     {
@@ -48,6 +81,12 @@ class ContactTest extends TestCase
         ];
     }
 
+    /**
+     * Testa o método de listagem de contatos, vendo se retorna paginado
+     *
+     * @return void
+     */
+
     public function testIndexContact()
     {
         $per_page = $this->faker->numberBetween(1, 10);
@@ -55,12 +94,24 @@ class ContactTest extends TestCase
         $this->assertTrue($data['contacts']->perPage() == $per_page);
     }
 
+    /**
+     * Testa o método de busca de contato, vendo se retorna os dados do contato certo
+     *
+     * @return void
+     */
+
     public function testShowContact()
     {
         $data = $this->contactService->show($this->contacts[0]->id);
         $this->assertIsArray($data['provinces']);
         $this->assertTrue($data['contact']['data']->id == $this->contacts[0]->id);
     }
+
+    /**
+     * Testa o método de cadastro de contatos, vendo se retorna os dados corretamente
+     *
+     * @return void
+     */
 
     public function testStoreContact()
     {
@@ -75,6 +126,12 @@ class ContactTest extends TestCase
         $this->assertTrue($data->name_file == $name_file);
     }
 
+    /**
+     * Testa o método de alteração de contatos, vendo se retorna os dados corretamente
+     *
+     * @return void
+     */
+
     public function testUpdateContact()
     {
         $id = $this->contacts[0]->id;
@@ -88,6 +145,12 @@ class ContactTest extends TestCase
         $this->assertTrue($data->name == $name);
         $this->assertTrue($data->name_file == $name_file);
     }
+
+    /**
+     * Testa o método de apagar contatos, vendo se realmente foi apagado
+     *
+     * @return void
+     */
 
     public function testDestroyContact()
     {

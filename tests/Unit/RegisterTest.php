@@ -11,7 +11,19 @@ class RegisterTest extends TestCase
 {
     use DatabaseTransactions;
 
+    /**
+     * Injeção de dependência da service de registro de usuário
+     *
+     * @var object
+     */
+
     protected $registerService;
+
+    /**
+     * Carrega os dados necessários para os testes
+     *
+     * @return void
+     */
 
     public function setUp(): void
     {
@@ -19,6 +31,12 @@ class RegisterTest extends TestCase
 
         $this->registerService = app(RegisterService::class);
     }
+
+    /**
+     * Testa o service de registro de usuário, verificando o email retornado
+     *
+     * @return void
+     */
 
     public function testCreateRegister()
     {

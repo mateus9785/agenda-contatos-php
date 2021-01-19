@@ -19,8 +19,32 @@ class ContactTest extends TestCase
     use RefreshDatabase;
     use WithoutMiddleware;
 
+    /**
+     * Dados do contato gerados aleatóriamente para teste
+     *
+     * @var array
+     */
     protected $faker_contact;
+
+    /**
+     * Lista de vários contatos
+     *
+     * @var array
+     */
     protected $contacts;
+
+    /**
+     * Objeto para facilitar fazer uma requisição
+     *
+     * @var object
+     */
+    protected $route;
+
+    /**
+     * Carrega os dados necessários para os testes
+     *
+     * @return void
+     */
 
     public function setUp(): void
     {
@@ -67,12 +91,24 @@ class ContactTest extends TestCase
         $this->route = $this->actingAs($user)->withoutMiddleware(Cors::class);
     }
 
+    /**
+     * Testa a rota de visualizar todos os contato, verificando se retornou 200
+     *
+     * @return void
+     */
+
     public function testContactIndex()
     {
         $response = $this->route->get('/contact');
 
         $response->assertStatus(200);
     }
+
+    /**
+     * Testa a rota de visualizar o contato, verificando se retornou 200
+     *
+     * @return void
+     */
 
     public function testContactShow()
     {
@@ -81,6 +117,12 @@ class ContactTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * Testa a rota de cadastrar contatos, verificando se retornou 200
+     *
+     * @return void
+     */
+
     public function testContactStore()
     {
         $response = $this->route->post('/contact', $this->faker_contact);
@@ -88,12 +130,24 @@ class ContactTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * Testa a rota de alterar contatos, verificando se retornou 200
+     *
+     * @return void
+     */
+
     public function testContactUpdate()
     {
         $response = $this->route->put('/contact/' . $this->contacts[0]->id, $this->faker_contact);
 
         $response->assertStatus(200);
     }
+
+    /**
+     * Testa a rota de deletar contatos, verificando se retornou 200
+     *
+     * @return void
+     */
 
     public function testContactDelete()
     {

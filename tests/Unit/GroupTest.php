@@ -13,9 +13,35 @@ class GroupTest extends TestCase
 {
     use DatabaseTransactions;
 
+    /**
+     * Injeção de dependência da service de grupos
+     *
+     * @var object
+     */
+
     protected $groupService;
+
+    /**
+     * Objetos para gerar dados fakes
+     *
+     * @var object
+     */
+
     protected $faker;
+
+    /**
+     * Lista de grupos para testes
+     *
+     * @var array
+     */
+
     protected $groups;
+
+    /**
+     * Carrega os dados necessários para os testes
+     *
+     * @return void
+     */
 
     public function setUp(): void
     {
@@ -30,6 +56,12 @@ class GroupTest extends TestCase
         $this->groupService = app(GroupService::class);
     }
 
+    /**
+     * Testa o método de listagem de grupos, vendo se retorna paginado os dados
+     *
+     * @return void
+     */
+
     public function testIndexGroup()
     {
         $per_page = $this->faker->numberBetween(1, 10);
@@ -39,6 +71,12 @@ class GroupTest extends TestCase
         $this->assertTrue($paginate->total() == sizeof($this->groups));
     }
 
+    /**
+     * Testa o método de cadastro de grupos, vendo se retorna os dados corretamente
+     *
+     * @return void
+     */
+
     public function testStoreGroup()
     {
         $name = $this->faker->name;
@@ -47,6 +85,12 @@ class GroupTest extends TestCase
         $this->assertTrue($new_group->name == $name);
     }
 
+    /**
+     * Testa o método de alteração de grupos, vendo se retorna os dados corretamente
+     *
+     * @return void
+     */
+
     public function testUpdateGroup()
     {
         $name = $this->faker->name;
@@ -54,6 +98,12 @@ class GroupTest extends TestCase
 
         $this->assertTrue($changed_group->name == $name);
     }
+
+    /**
+     * Testa o método de apagar grupos, vendo se realmente foi apagado
+     *
+     * @return void
+     */
 
     public function testDeleteGroup()
     {

@@ -8,6 +8,13 @@ use App\Repositories\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface
 {
+    /**
+     * Cadastra usuário
+     *
+     * @param string $email
+     * @param string $password
+     */
+
     public function store($email, $password)
     {
         return User::create([

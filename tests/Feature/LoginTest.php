@@ -12,9 +12,32 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Objetos para gerar dados fakes
+     *
+     * @var object
+     */
     protected $faker;
+
+    /**
+     * Objeto com usuário criado para testes
+     *
+     * @var object
+     */
     protected $user;
+
+    /**
+     * Senha para testes
+     *
+     * @var array
+     */
     protected $password = '123456789';
+
+    /**
+     * Carrega os dados necessários para os testes
+     *
+     * @return void
+     */
 
     public function setUp(): void
     {
@@ -23,6 +46,12 @@ class LoginTest extends TestCase
         $this->faker = Factory::create();
         $this->user = User::factory()->create(['password' => Hash::make($this->password)]);
     }
+
+    /**
+     * Testa a rota de login de um usuário, verificando se retornou 302
+     *
+     * @return void
+     */
 
     public function testUserLogin()
     {

@@ -7,10 +7,11 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreGroupRequest extends FormRequest
 {
 
-    public function authorize()
-    {
-        return true;
-    }
+    /**
+     * Regras de validação dos dados de uma requisição
+     *
+     * @return array
+     */
 
     public function messages()
     {
@@ -19,6 +20,12 @@ class StoreGroupRequest extends FormRequest
             'name.max' => 'O nome do grupo não pode ter mais de 30 caracteres'
         ];
     }
+
+    /**
+     * Regras de validação dos dados de uma requisição
+     *
+     * @return array
+     */
 
     public function rules()
     {
