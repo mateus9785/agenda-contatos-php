@@ -19,7 +19,7 @@ class AddressFactory extends Factory
             'complement' => $this->faker->sentence,
             'cep' => $this->faker->postcode,
             'number' => $this->faker->numberBetween(0, 9999),
-            'contact_id' => $this->faker->uuid
+            'contact_id' => $this->faker->uuid,
         ];
     }
 }

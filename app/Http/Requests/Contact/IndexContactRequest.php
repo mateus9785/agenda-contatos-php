@@ -6,13 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class IndexContactRequest extends FormRequest
 {
-
     /**
      * Regras de validação dos dados de uma requisição
      *
      * @return array
      */
-
     public function rules()
     {
         return [

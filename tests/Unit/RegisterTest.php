@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Faker\Factory;
-use Tests\TestCase;
 use App\Services\RegisterService;
+use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
@@ -16,15 +16,11 @@ class RegisterTest extends TestCase
      *
      * @var object
      */
-
     protected $registerService;
 
     /**
      * Carrega os dados necessários para os testes
-     *
-     * @return void
      */
-
     public function setUp(): void
     {
         parent::setUp();
@@ -37,7 +33,6 @@ class RegisterTest extends TestCase
      *
      * @return void
      */
-
     public function testCreateRegister()
     {
         $fake = Factory::create();

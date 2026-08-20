@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Contact;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Phone extends Model
 {
@@ -15,13 +14,11 @@ class Phone extends Model
      *
      * @var array
      */
-
     protected $fillable = ['name', 'contact_id'];
 
     /**
      * Pega o contato que possui esse telefone
      */
-
     public function contact()
     {
         return $this->hasOne(Contact::class);

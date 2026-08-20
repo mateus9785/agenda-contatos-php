@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use Faker\Factory;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
@@ -15,15 +15,11 @@ class RegisterTest extends TestCase
      *
      * @var object
      */
-
     protected $faker;
 
     /**
      * Carrega os dados necessários para os testes
-     *
-     * @return void
      */
-
     public function setUp(): void
     {
         parent::setUp();
@@ -36,7 +32,6 @@ class RegisterTest extends TestCase
      *
      * @return void
      */
-
     public function testUserRegister()
     {
         $password = $this->faker->password;

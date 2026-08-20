@@ -3,17 +3,15 @@
 namespace App\Repositories;
 
 use App\Models\Contact;
-use App\Repositories\ContactRepositoryInterface;
 
 class ContactRepository implements ContactRepositoryInterface
 {
     /**
      * Busca contato por id
      *
-     * @param int $id
-     * @param int $user_id
+     * @param  int  $id
+     * @param  int  $user_id
      */
-
     public function findById($id, $user_id)
     {
         return Contact::findOne($id, $user_id);
@@ -22,9 +20,8 @@ class ContactRepository implements ContactRepositoryInterface
     /**
      * Busca todos os contatos
      *
-     * @param int $user_id
+     * @param  int  $user_id
      */
-
     public function findAll($user_id)
     {
         return Contact::where('user_id', $user_id)->orderBy('name', 'ASC')->get();
@@ -33,18 +30,16 @@ class ContactRepository implements ContactRepositoryInterface
     /**
      * Busca todos os contatos paginados
      *
-     * @param int $user_id
-     * @param int $group_id
-     * @param string $search
-     * @param int $per_page
+     * @param  int  $user_id
+     * @param  int  $group_id
+     * @param  string  $search
+     * @param  int  $per_page
      */
-
     public function findAllPaginate($user_id, $group_id, $search, $per_page)
     {
-
         $query = Contact::where('contacts.user_id', $user_id);
         if ($search) {
-            $query->where('contacts.name', 'like', '%' . $search . '%');
+            $query->where('contacts.name', 'like', '%'.$search.'%');
         }
 
         if ($group_id) {
@@ -60,35 +55,33 @@ class ContactRepository implements ContactRepositoryInterface
     /**
      * Cadastro de contatos
      *
-     * @param int $user_id
-     * @param string $name
-     * @param string $name_file
-     * @param boolean $is_user_contact
+     * @param  int  $user_id
+     * @param  string  $name
+     * @param  string  $name_file
+     * @param  bool  $is_user_contact
      */
-
     public function store($user_id, $name, $name_file = null, $is_user_contact = false)
     {
         return Contact::create([
             'user_id' => $user_id,
-            "name" => $name,
-            "is_user_contact" => $is_user_contact,
-            "name_file" => $name_file
+            'name' => $name,
+            'is_user_contact' => $is_user_contact,
+            'name_file' => $name_file,
         ]);
     }
 
     /**
      * Alteração de contatos
      *
-     * @param object $contact
-     * @param string $name
-     * @param string $name_file
+     * @param  object  $contact
+     * @param  string  $name
+     * @param  string  $name_file
      */
-
     public function update($contact, $name, $name_file)
     {
         $contact->update([
-            "name" => $name,
-            "name_file" => $name_file,
+            'name' => $name,
+            'name_file' => $name_file,
         ]);
 
         return $contact;
@@ -97,9 +90,8 @@ class ContactRepository implements ContactRepositoryInterface
     /**
      * Deleta contato
      *
-     * @param object $contact
+     * @param  object  $contact
      */
-
     public function delete($contact)
     {
         $contact->delete();

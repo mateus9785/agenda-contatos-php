@@ -2,19 +2,17 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Auth;
-use App\Services\GroupServiceInterface;
 use App\Repositories\GroupRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class GroupService implements GroupServiceInterface
 {
     /**
      * Cria uma nova intância do service e faz injeção de dependência dos services
      *
-     * @param App\Repositories\GroupRepositoryInterface $groupRepository
+     * @param  App\Repositories\GroupRepositoryInterface  $groupRepository
      * @return void
      */
-
     public function __construct(GroupRepositoryInterface $groupRepository)
     {
         $this->groupRepository = $groupRepository;
@@ -23,9 +21,8 @@ class GroupService implements GroupServiceInterface
     /**
      * Método de listar grupos
      *
-     * @param int $per_page
+     * @param  int  $per_page
      */
-
     public function index($per_page = 10)
     {
         $user_id = Auth::user()->id;
@@ -36,10 +33,9 @@ class GroupService implements GroupServiceInterface
     /**
      * Método de cadastrar grupo.
      *
-     * @param string $name
+     * @param  string  $name
      * @return object
      */
-
     public function store($name)
     {
         $user_id = Auth::user()->id;
@@ -50,19 +46,18 @@ class GroupService implements GroupServiceInterface
     /**
      * Método de alterar grupo.
      *
-     * @param int $id
-     * @param string $name
+     * @param  int  $id
+     * @param  string  $name
      * @return object
      */
-
     public function update($id, $name)
     {
         $user_id = Auth::user()->id;
 
         $group = $this->groupRepository->findById($id, $user_id);
 
-        if (!$group) {
-            return response("Grupo não encontrado", 404);
+        if (! $group) {
+            return response('Grupo não encontrado', 404);
         }
 
         return $this->groupRepository->update($group, $name);
@@ -71,18 +66,17 @@ class GroupService implements GroupServiceInterface
     /**
      * Método de deletar grupo
      *
-     * @param int $id
+     * @param  int  $id
      * @return void
      */
-
     public function destroy($id)
     {
         $user_id = Auth::user()->id;
 
         $group = $this->groupRepository->findById($id, $user_id);
 
-        if (!$group) {
-            return response("Grupo não encontrado", 404);
+        if (! $group) {
+            return response('Grupo não encontrado', 404);
         }
 
         $this->groupRepository->delete($group);

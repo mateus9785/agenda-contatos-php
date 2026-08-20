@@ -11,7 +11,6 @@ class StoreContactRequest extends FormRequest
      *
      * @return array
      */
-
     public function messages()
     {
         return [
@@ -38,7 +37,6 @@ class StoreContactRequest extends FormRequest
      *
      * @return array
      */
-
     public function rules()
     {
         return [

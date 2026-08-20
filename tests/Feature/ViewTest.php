@@ -11,7 +11,6 @@ class ViewTest extends TestCase
      *
      * @return void
      */
-
     public function testPageWelcome()
     {
         $response = $this->get('/');
@@ -24,7 +23,6 @@ class ViewTest extends TestCase
      *
      * @return void
      */
-
     public function testPageRegister()
     {
         $response = $this->get('/register');
@@ -37,7 +35,6 @@ class ViewTest extends TestCase
      *
      * @return void
      */
-
     public function testPageLogin()
     {
         $response = $this->get('/login');
@@ -50,7 +47,6 @@ class ViewTest extends TestCase
      *
      * @return void
      */
-
     public function testPageReset()
     {
         $response = $this->get('/password/reset');

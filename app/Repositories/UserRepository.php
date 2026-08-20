@@ -4,17 +4,15 @@ namespace App\Repositories;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use App\Repositories\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface
 {
     /**
      * Cadastra usuário
      *
-     * @param string $email
-     * @param string $password
+     * @param  string  $email
+     * @param  string  $password
      */
-
     public function store($email, $password)
     {
         return User::create([

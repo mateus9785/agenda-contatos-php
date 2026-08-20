@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use Faker\Factory;
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Group;
+use App\Models\User;
 use Asm89\Stack\Cors;
+use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Tests\TestCase;
 
 class GroupTest extends TestCase
 {
@@ -38,10 +38,7 @@ class GroupTest extends TestCase
 
     /**
      * Carrega os dados necessários para os testes
-     *
-     * @return void
      */
-
     public function setUp(): void
     {
         parent::setUp();
@@ -58,7 +55,6 @@ class GroupTest extends TestCase
      *
      * @return void
      */
-
     public function testGroupIndex()
     {
         $response = $this->route->get('/group');
@@ -71,7 +67,6 @@ class GroupTest extends TestCase
      *
      * @return void
      */
-
     public function testGroupStore()
     {
         $response = $this->route->post('/group', [
@@ -86,10 +81,9 @@ class GroupTest extends TestCase
      *
      * @return void
      */
-
     public function testGroupUpdate()
     {
-        $response = $this->route->put('/group/' . $this->groups[0]->id, [
+        $response = $this->route->put('/group/'.$this->groups[0]->id, [
             'name' => $this->faker->name,
         ]);
 
@@ -101,10 +95,9 @@ class GroupTest extends TestCase
      *
      * @return void
      */
-
     public function testGroupDelete()
     {
-        $response = $this->route->delete('/group/' . $this->groups[0]->id);
+        $response = $this->route->delete('/group/'.$this->groups[0]->id);
 
         $response->assertStatus(200);
     }

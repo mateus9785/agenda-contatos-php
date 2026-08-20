@@ -12,10 +12,9 @@ class GroupController extends Controller
     /**
      * Cria uma nova intância do controller e faz injeção de dependência dos services
      *
-     * @param App\Services\GroupServiceInterface $groupService
+     * @param  App\Services\GroupServiceInterface  $groupService
      * @return void
      */
-
     public function __construct(GroupServiceInterface $groupService)
     {
         $this->middleware('auth');
@@ -25,10 +24,9 @@ class GroupController extends Controller
     /**
      * Método de mostrar vários grupos.
      *
-     * @param App\Http\Requests\Contact\IndexGroupRequest $request
+     * @param  App\Http\Requests\Contact\IndexGroupRequest  $request
      * @return Symfony\Component\HttpFoundation\Response
      */
-
     public function index(IndexGroupRequest $request)
     {
         try {
@@ -38,17 +36,16 @@ class GroupController extends Controller
 
             return view('group', ['groups' => $groups]);
         } catch (\Throwable $exception) {
-            return response("Ocorreu um erro ao realizar a opereção", 500);
+            return response('Ocorreu um erro ao realizar a opereção', 500);
         }
     }
 
     /**
      * Método de cadastrar grupos.
      *
-     * @param App\Http\Requests\Contact\StoreGroupRequest $request
+     * @param  App\Http\Requests\Contact\StoreGroupRequest  $request
      * @return Symfony\Component\HttpFoundation\Response
      */
-
     public function store(StoreGroupRequest $request)
     {
         try {
@@ -58,18 +55,16 @@ class GroupController extends Controller
 
             return response($group, 200);
         } catch (\Throwable $exception) {
-            return response("Ocorreu um erro ao realizar a opereção", 500);
+            return response('Ocorreu um erro ao realizar a opereção', 500);
         }
     }
 
     /**
      * Método de alterar grupos.
      *
-     * @param App\Http\Requests\Contact\UpdateGroupRequest $request
-     * @param int $id
+     * @param  App\Http\Requests\Contact\UpdateGroupRequest  $request
      * @return Symfony\Component\HttpFoundation\Response
      */
-
     public function update(UpdateGroupRequest $request, int $id)
     {
         try {
@@ -79,17 +74,15 @@ class GroupController extends Controller
 
             return response($group, 200);
         } catch (\Throwable $exception) {
-            return response("Ocorreu um erro ao realizar a opereção", 500);
+            return response('Ocorreu um erro ao realizar a opereção', 500);
         }
     }
 
     /**
      * Método de detruir grupos.
      *
-     * @param int $id
      * @return Symfony\Component\HttpFoundation\Response
      */
-
     public function destroy(int $id)
     {
         try {
@@ -97,7 +90,7 @@ class GroupController extends Controller
 
             return response([], 200);
         } catch (\Throwable $exception) {
-            return response("Ocorreu um erro ao realizar a opereção", 500);
+            return response('Ocorreu um erro ao realizar a opereção', 500);
         }
     }
 }
