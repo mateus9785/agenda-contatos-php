@@ -2,23 +2,21 @@
 
 namespace Tests\Unit;
 
-use Faker\Factory;
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Group;
 use App\Models\Contact;
-use Illuminate\Support\Str;
+use App\Models\Group;
+use App\Models\User;
 use App\Services\ContactService;
+use Faker\Factory;
+use Illuminate\Support\Str;
+use Tests\TestCase;
 
 class ContactTest extends TestCase
 {
-
     /**
      * Objetos para gerar dados fakes
      *
      * @var object
      */
-
     protected $faker;
 
     /**
@@ -26,7 +24,6 @@ class ContactTest extends TestCase
      *
      * @var object
      */
-
     protected $contactService;
 
     /**
@@ -34,7 +31,6 @@ class ContactTest extends TestCase
      *
      * @var object
      */
-
     protected $contacts;
 
     /**
@@ -42,15 +38,11 @@ class ContactTest extends TestCase
      *
      * @var object
      */
-
     protected $faker_contact;
 
     /**
      * Carrega os dados necessários para os testes
-     *
-     * @return void
      */
-
     public function setUp(): void
     {
         parent::setUp();
@@ -76,8 +68,8 @@ class ContactTest extends TestCase
                     'complement' => $this->faker->sentence,
                     'cep' => $this->faker->postcode,
                     'number' => (string) $this->faker->numberBetween(0, 9999),
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
@@ -86,7 +78,6 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-
     public function testIndexContact()
     {
         $per_page = $this->faker->numberBetween(1, 10);
@@ -99,7 +90,6 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-
     public function testShowContact()
     {
         $data = $this->contactService->show($this->contacts[0]->id);
@@ -112,7 +102,6 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-
     public function testStoreContact()
     {
         $name = $this->faker_contact['name'];
@@ -131,7 +120,6 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-
     public function testUpdateContact()
     {
         $id = $this->contacts[0]->id;
@@ -151,7 +139,6 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-
     public function testDestroyContact()
     {
         $this->contactService->destroy($this->contacts[0]->id);

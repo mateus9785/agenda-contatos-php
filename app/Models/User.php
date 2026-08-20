@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Contact;
-use Illuminate\Notifications\Notifiable;
 use App\Notifications\MyResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -18,7 +17,6 @@ class User extends Authenticatable
      *
      * @var array
      */
-
     protected $fillable = [
         'email',
         'password',
@@ -29,7 +27,6 @@ class User extends Authenticatable
      *
      * @var array
      */
-
     protected $hidden = [
         'password',
         'remember_token',
@@ -40,7 +37,6 @@ class User extends Authenticatable
      *
      * @var array
      */
-
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -48,10 +44,9 @@ class User extends Authenticatable
     /**
      * Método de envio de email para mudança de senha
      *
-     * @param string $token
+     * @param  string  $token
      * @return void
      */
-
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new MyResetPasswordNotification($token));
@@ -60,7 +55,6 @@ class User extends Authenticatable
     /**
      * Pega os contatos desse usuário
      */
-
     public function contacts()
     {
         return $this->hasMany(Contact::class);

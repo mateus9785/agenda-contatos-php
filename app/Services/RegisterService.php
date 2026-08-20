@@ -2,22 +2,20 @@
 
 namespace App\Services;
 
-use App\Services\RegisterServiceInterface;
-use App\Repositories\UserRepositoryInterface;
-use App\Repositories\GroupRepositoryInterface;
 use App\Repositories\ContactRepositoryInterface;
+use App\Repositories\GroupRepositoryInterface;
+use App\Repositories\UserRepositoryInterface;
 
 class RegisterService implements RegisterServiceInterface
 {
     /**
      * Cria uma nova intância do service e faz injeção de dependência dos services
      *
-     * @param App\Repositories\UserRepositoryInterface $contactRepository
-     * @param App\Repositories\ContactRepositoryInterface $contactRepository
-     * @param App\Repositories\GroupRepositoryInterface $groupRepository
+     * @param  App\Repositories\UserRepositoryInterface  $contactRepository
+     * @param  App\Repositories\ContactRepositoryInterface  $contactRepository
+     * @param  App\Repositories\GroupRepositoryInterface  $groupRepository
      * @return void
      */
-
     public function __construct(
         UserRepositoryInterface $userRepository,
         GroupRepositoryInterface $groupRepository,
@@ -31,12 +29,11 @@ class RegisterService implements RegisterServiceInterface
     /**
      * Método de registrar usuário.
      *
-     * @param string $name
-     * @param string $email
-     * @param string $password
+     * @param  string  $name
+     * @param  string  $email
+     * @param  string  $password
      * @return object
      */
-
     public function create($name, $email, $password)
     {
         $user = $this->userRepository->store($email, $password);
@@ -47,7 +44,7 @@ class RegisterService implements RegisterServiceInterface
 
         $default_groups = [
             'Favoritos', 'Colegas de trabalho', 'Família',
-            'Amigos', 'Contatos de Emergência'
+            'Amigos', 'Contatos de Emergência',
         ];
 
         foreach ($default_groups as $group_name) {

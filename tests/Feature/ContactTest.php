@@ -2,17 +2,17 @@
 
 namespace Tests\Feature;
 
-use Faker\Factory;
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Group;
-use App\Models\Phone;
 use App\Models\Address;
 use App\Models\Contact;
-use Illuminate\Support\Str;
 use App\Models\ContactGroup;
+use App\Models\Group;
+use App\Models\Phone;
+use App\Models\User;
+use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Support\Str;
+use Tests\TestCase;
 
 class ContactTest extends TestCase
 {
@@ -42,10 +42,7 @@ class ContactTest extends TestCase
 
     /**
      * Carrega os dados necessários para os testes
-     *
-     * @return void
      */
-
     public function setUp(): void
     {
         parent::setUp();
@@ -63,7 +60,7 @@ class ContactTest extends TestCase
                         ContactGroup::factory()->create([
                             'contact_id' => $contact->id,
                             'user_id' => $user->id,
-                            'group_id' => $group->id
+                            'group_id' => $group->id,
                         ]);
                     });
             });
@@ -84,8 +81,8 @@ class ContactTest extends TestCase
                     'complement' => $faker->sentence,
                     'cep' => $faker->postcode,
                     'number' => (string) $faker->numberBetween(0, 9999),
-                ]
-            ]
+                ],
+            ],
         ];
 
         $this->route = $this->actingAs($user)->withoutMiddleware(Cors::class);
@@ -96,7 +93,6 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-
     public function testContactIndex()
     {
         $response = $this->route->get('/contact');
@@ -109,10 +105,9 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-
     public function testContactShow()
     {
-        $response = $this->route->get('/contact/form?id=' . $this->contacts[0]->id);
+        $response = $this->route->get('/contact/form?id='.$this->contacts[0]->id);
 
         $response->assertStatus(200);
     }
@@ -122,7 +117,6 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-
     public function testContactStore()
     {
         $response = $this->route->post('/contact', $this->faker_contact);
@@ -135,10 +129,9 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-
     public function testContactUpdate()
     {
-        $response = $this->route->put('/contact/' . $this->contacts[0]->id, $this->faker_contact);
+        $response = $this->route->put('/contact/'.$this->contacts[0]->id, $this->faker_contact);
 
         $response->assertStatus(200);
     }
@@ -148,10 +141,9 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-
     public function testContactDelete()
     {
-        $response = $this->route->delete('/contact/' . $this->contacts[0]->id);
+        $response = $this->route->delete('/contact/'.$this->contacts[0]->id);
 
         $response->assertStatus(200);
     }

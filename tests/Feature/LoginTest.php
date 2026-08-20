@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use Faker\Factory;
-use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
@@ -35,10 +35,7 @@ class LoginTest extends TestCase
 
     /**
      * Carrega os dados necessários para os testes
-     *
-     * @return void
      */
-
     public function setUp(): void
     {
         parent::setUp();
@@ -52,7 +49,6 @@ class LoginTest extends TestCase
      *
      * @return void
      */
-
     public function testUserLogin()
     {
         $response = $this->withoutMiddleware(Cors::class)->post('/login', [

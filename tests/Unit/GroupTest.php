@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use Faker\Factory;
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Group;
+use App\Models\User;
 use App\Services\GroupService;
+use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class GroupTest extends TestCase
 {
@@ -18,7 +18,6 @@ class GroupTest extends TestCase
      *
      * @var object
      */
-
     protected $groupService;
 
     /**
@@ -26,7 +25,6 @@ class GroupTest extends TestCase
      *
      * @var object
      */
-
     protected $faker;
 
     /**
@@ -34,15 +32,11 @@ class GroupTest extends TestCase
      *
      * @var array
      */
-
     protected $groups;
 
     /**
      * Carrega os dados necessários para os testes
-     *
-     * @return void
      */
-
     public function setUp(): void
     {
         parent::setUp();
@@ -61,14 +55,13 @@ class GroupTest extends TestCase
      *
      * @return void
      */
-
     public function testIndexGroup()
     {
         $per_page = $this->faker->numberBetween(1, 10);
         $paginate = $this->groupService->index($per_page);
 
         $this->assertTrue($paginate->perPage() == $per_page);
-        $this->assertTrue($paginate->total() == sizeof($this->groups));
+        $this->assertTrue($paginate->total() == count($this->groups));
     }
 
     /**
@@ -76,7 +69,6 @@ class GroupTest extends TestCase
      *
      * @return void
      */
-
     public function testStoreGroup()
     {
         $name = $this->faker->name;
@@ -90,7 +82,6 @@ class GroupTest extends TestCase
      *
      * @return void
      */
-
     public function testUpdateGroup()
     {
         $name = $this->faker->name;
@@ -104,7 +95,6 @@ class GroupTest extends TestCase
      *
      * @return void
      */
-
     public function testDeleteGroup()
     {
         $this->groupService->destroy($this->groups[0]->id);

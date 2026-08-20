@@ -6,13 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateContactRequest extends FormRequest
 {
-
     /**
      * Mensagens de erro para cada tipo de validação
      *
      * @return array
      */
-
     public function messages()
     {
         return [
@@ -39,7 +37,6 @@ class UpdateContactRequest extends FormRequest
      *
      * @return array
      */
-
     public function rules()
     {
         return [

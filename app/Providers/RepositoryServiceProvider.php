@@ -11,7 +11,6 @@ class RepositoryServiceProvider extends ServiceProvider
      *
      * @return void
      */
-
     public function register()
     {
         $this->app->bind('App\Repositories\GroupRepositoryInterface', 'App\Repositories\GroupRepository');

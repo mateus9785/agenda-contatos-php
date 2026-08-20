@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Contact;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class ContactFactory extends Factory
 {
@@ -16,7 +16,7 @@ class ContactFactory extends Factory
             'name' => $this->faker->name,
             'name_file' => Str::random(10),
             'is_user_contact' => $this->faker->numberBetween(0, 1),
-            'user_id' => $this->faker->uuid
+            'user_id' => $this->faker->uuid,
         ];
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ResetPasswordTest extends TestCase
 {
@@ -26,10 +26,7 @@ class ResetPasswordTest extends TestCase
 
     /**
      * Carrega os dados necessários para os testes
-     *
-     * @return void
      */
-
     public function setUp(): void
     {
         parent::setUp();
@@ -44,11 +41,10 @@ class ResetPasswordTest extends TestCase
      *
      * @return void
      */
-
     public function testResetPassword()
     {
         $response = $this->route->post('/password/email', [
-            'email' => $this->user->email
+            'email' => $this->user->email,
         ]);
 
         $response->assertStatus(302);

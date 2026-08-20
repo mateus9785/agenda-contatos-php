@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Group;
-use App\Models\Contact;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class ContactGroup extends Model
 {
@@ -16,13 +14,11 @@ class ContactGroup extends Model
      *
      * @var array
      */
-
     protected $fillable = ['contact_id', 'group_id', 'user_id'];
 
     /**
      * Une com a tabela de grupos em uma query
      */
-
     public function scopeJoinGroup($query)
     {
         return $query->join('groups', function ($join) {
@@ -33,7 +29,6 @@ class ContactGroup extends Model
     /**
      * Pega o contato que possui um grupo
      */
-
     public function contact()
     {
         return $this->hasOne(Contact::class);
@@ -42,7 +37,6 @@ class ContactGroup extends Model
     /**
      * Pega o grupo que possui um contato
      */
-
     public function group()
     {
         return $this->hasOne(Group::class);
