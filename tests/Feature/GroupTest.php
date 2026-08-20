@@ -39,7 +39,7 @@ class GroupTest extends TestCase
     /**
      * Carrega os dados necessários para os testes
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -55,7 +55,7 @@ class GroupTest extends TestCase
      *
      * @return void
      */
-    public function testGroupIndex()
+    public function test_group_index()
     {
         $response = $this->route->get('/group');
 
@@ -67,7 +67,7 @@ class GroupTest extends TestCase
      *
      * @return void
      */
-    public function testGroupStore()
+    public function test_group_store()
     {
         $response = $this->route->post('/group', [
             'name' => $this->faker->name,
@@ -81,7 +81,7 @@ class GroupTest extends TestCase
      *
      * @return void
      */
-    public function testGroupUpdate()
+    public function test_group_update()
     {
         $response = $this->route->put('/group/'.$this->groups[0]->id, [
             'name' => $this->faker->name,
@@ -95,7 +95,7 @@ class GroupTest extends TestCase
      *
      * @return void
      */
-    public function testGroupDelete()
+    public function test_group_delete()
     {
         $response = $this->route->delete('/group/'.$this->groups[0]->id);
 

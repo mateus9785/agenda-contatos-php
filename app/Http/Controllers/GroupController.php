@@ -6,18 +6,27 @@ use App\Http\Requests\Group\IndexGroupRequest;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Http\Requests\Group\UpdateGroupRequest;
 use App\Services\GroupServiceInterface;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class GroupController extends Controller
+class GroupController extends Controller implements HasMiddleware
 {
+    private GroupServiceInterface $groupService;
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
+    }
+
     /**
      * Cria uma nova intância do controller e faz injeção de dependência dos services
      *
-     * @param  App\Services\GroupServiceInterface  $groupService
      * @return void
      */
     public function __construct(GroupServiceInterface $groupService)
     {
-        $this->middleware('auth');
         $this->groupService = $groupService;
     }
 

@@ -43,7 +43,7 @@ class ContactTest extends TestCase
     /**
      * Carrega os dados necessários para os testes
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -93,7 +93,7 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-    public function testContactIndex()
+    public function test_contact_index()
     {
         $response = $this->route->get('/contact');
 
@@ -105,7 +105,7 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-    public function testContactShow()
+    public function test_contact_show()
     {
         $response = $this->route->get('/contact/form?id='.$this->contacts[0]->id);
 
@@ -117,7 +117,7 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-    public function testContactStore()
+    public function test_contact_store()
     {
         $response = $this->route->post('/contact', $this->faker_contact);
 
@@ -129,7 +129,7 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-    public function testContactUpdate()
+    public function test_contact_update()
     {
         $response = $this->route->put('/contact/'.$this->contacts[0]->id, $this->faker_contact);
 
@@ -141,7 +141,7 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-    public function testContactDelete()
+    public function test_contact_delete()
     {
         $response = $this->route->delete('/contact/'.$this->contacts[0]->id);
 

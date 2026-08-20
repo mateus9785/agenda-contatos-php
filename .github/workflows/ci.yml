@@ -11,21 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # composer.lock is pinned to phpunit/phpspec-prophecy versions that
-      # cap out at PHP 8.0 (phpspec/prophecy 1.12.2 requires "<8.1"). This
-      # matches what's actually installable today; the Laravel/PHP upgrade
-      # (tracked separately) moves this to a newer matrix along with the
-      # lock file.
+      # laravel/framework ^13.0 itself requires PHP ^8.3 -- there's no lower
+      # version to matrix against.
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.3'
           extensions: mbstring, pdo_sqlite, sqlite3, zip, bcmath
           coverage: none
 
       - run: composer install --no-interaction --prefer-dist
 
       - run: vendor/bin/pint --test
-      - run: vendor/bin/phpstan analyse --no-progress
+      # Larastan on this codebase needs more than PHPStan's 128M default.
+      - run: vendor/bin/phpstan analyse --no-progress --memory-limit=512M
 
       - run: cp .env.example .env
       - run: php artisan key:generate

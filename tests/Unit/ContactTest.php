@@ -44,7 +44,7 @@ class ContactTest extends TestCase
     /**
      * Carrega os dados necessários para os testes
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -91,7 +91,7 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-    public function testIndexContact()
+    public function test_index_contact()
     {
         $per_page = $this->faker->numberBetween(1, 10);
         $data = $this->contactService->index(null, null, $per_page);
@@ -103,7 +103,7 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-    public function testShowContact()
+    public function test_show_contact()
     {
         $data = $this->contactService->show($this->contacts[0]->id);
         $this->assertIsArray($data['provinces']);
@@ -115,7 +115,7 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-    public function testStoreContact()
+    public function test_store_contact()
     {
         $name = $this->faker_contact['name'];
         $name_file = $this->faker_contact['name_file'];
@@ -133,7 +133,7 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-    public function testUpdateContact()
+    public function test_update_contact()
     {
         $id = $this->contacts[0]->id;
         $name = $this->faker_contact['name'];
@@ -152,7 +152,7 @@ class ContactTest extends TestCase
      *
      * @return void
      */
-    public function testDestroyContact()
+    public function test_destroy_contact()
     {
         $this->contactService->destroy($this->contacts[0]->id);
 

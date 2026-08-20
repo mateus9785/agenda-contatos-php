@@ -1,326 +1,367 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^PHPDoc type array of property App\\\\Exceptions\\\\Handler\\:\\:\\$dontFlash is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Foundation\\\\Exceptions\\\\Handler\\:\\:\\$dontFlash\\.$#"
-			count: 1
-			path: app/Exceptions/Handler.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Controllers\\\\Auth\\\\RegisterController\\:\\:\\$registerService\\.$#"
-			count: 2
-			path: app/Http/Controllers/Auth/RegisterController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Controllers\\\\ContactController\\:\\:\\$contactService\\.$#"
-			count: 6
-			path: app/Http/Controllers/ContactController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:destroy\\(\\) has invalid return type App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\ContactController\:\:destroy\(\) has invalid return type App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:destroy\\(\\) should return App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response but returns Illuminate\\\\Http\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\ContactController\:\:destroy\(\) should return App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response but returns Illuminate\\Http\\Response\.$#'
+			identifier: return.type
 			count: 2
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:index\\(\\) has invalid return type App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\ContactController\:\:index\(\) has invalid return type App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:index\\(\\) should return App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response but returns Illuminate\\\\View\\\\View\\.$#"
+			message: '#^Method App\\Http\\Controllers\\ContactController\:\:index\(\) should return App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response but returns Illuminate\\View\\View\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:show\\(\\) has invalid return type App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\ContactController\:\:show\(\) has invalid return type App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:show\\(\\) should return App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response but returns Illuminate\\\\View\\\\View\\.$#"
+			message: '#^Method App\\Http\\Controllers\\ContactController\:\:show\(\) should return App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response but returns Illuminate\\View\\View\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:store\\(\\) has invalid return type App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\ContactController\:\:store\(\) has invalid return type App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:store\\(\\) should return App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response but returns Illuminate\\\\Http\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\ContactController\:\:store\(\) should return App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response but returns Illuminate\\Http\\Response\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:update\\(\\) has invalid return type App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\ContactController\:\:update\(\) has invalid return type App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:update\\(\\) should return App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response but returns Illuminate\\\\Http\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\ContactController\:\:update\(\) should return App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response but returns Illuminate\\Http\\Response\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$contactService with type App\\\\Http\\\\Controllers\\\\App\\\\Services\\\\ContactServiceInterface is not subtype of native type App\\\\Services\\\\ContactServiceInterface\\.$#"
+			message: '#^PHPDoc tag @param for parameter \$request with type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\IndexContactRequest is not subtype of native type App\\Http\\Requests\\Contact\\IndexContactRequest\.$#'
+			identifier: parameter.phpDocType
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$request with type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\IndexContactRequest is not subtype of native type App\\\\Http\\\\Requests\\\\Contact\\\\IndexContactRequest\\.$#"
+			message: '#^PHPDoc tag @param for parameter \$request with type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\ShowContactRequest is not subtype of native type App\\Http\\Requests\\Contact\\ShowContactRequest\.$#'
+			identifier: parameter.phpDocType
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$request with type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\ShowContactRequest is not subtype of native type App\\\\Http\\\\Requests\\\\Contact\\\\ShowContactRequest\\.$#"
+			message: '#^PHPDoc tag @param for parameter \$request with type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\StoreContactRequest is not subtype of native type App\\Http\\Requests\\Contact\\StoreContactRequest\.$#'
+			identifier: parameter.phpDocType
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$request with type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\StoreContactRequest is not subtype of native type App\\\\Http\\\\Requests\\\\Contact\\\\StoreContactRequest\\.$#"
+			message: '#^PHPDoc tag @param for parameter \$request with type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\UpdateContactRequest is not subtype of native type App\\Http\\Requests\\Contact\\UpdateContactRequest\.$#'
+			identifier: parameter.phpDocType
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$request with type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\UpdateContactRequest is not subtype of native type App\\\\Http\\\\Requests\\\\Contact\\\\UpdateContactRequest\\.$#"
+			message: '#^Parameter \$request of method App\\Http\\Controllers\\ContactController\:\:index\(\) has invalid type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\IndexContactRequest\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Parameter \\$contactService of method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:__construct\\(\\) has invalid type App\\\\Http\\\\Controllers\\\\App\\\\Services\\\\ContactServiceInterface\\.$#"
+			message: '#^Parameter \$request of method App\\Http\\Controllers\\ContactController\:\:show\(\) has invalid type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\ShowContactRequest\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Parameter \\$request of method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:index\\(\\) has invalid type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\IndexContactRequest\\.$#"
+			message: '#^Parameter \$request of method App\\Http\\Controllers\\ContactController\:\:store\(\) has invalid type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\StoreContactRequest\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Parameter \\$request of method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:show\\(\\) has invalid type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\ShowContactRequest\\.$#"
+			message: '#^Parameter \$request of method App\\Http\\Controllers\\ContactController\:\:update\(\) has invalid type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\UpdateContactRequest\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/ContactController.php
 
 		-
-			message: "#^Parameter \\$request of method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:store\\(\\) has invalid type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\StoreContactRequest\\.$#"
+			message: '#^Method App\\Http\\Controllers\\GroupController\:\:destroy\(\) has invalid return type App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response\.$#'
+			identifier: class.notFound
 			count: 1
-			path: app/Http/Controllers/ContactController.php
-
-		-
-			message: "#^Parameter \\$request of method App\\\\Http\\\\Controllers\\\\ContactController\\:\\:update\\(\\) has invalid type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\UpdateContactRequest\\.$#"
-			count: 1
-			path: app/Http/Controllers/ContactController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Controllers\\\\GroupController\\:\\:\\$groupService\\.$#"
-			count: 5
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:destroy\\(\\) has invalid return type App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response\\.$#"
-			count: 1
-			path: app/Http/Controllers/GroupController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:destroy\\(\\) should return App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response but returns Illuminate\\\\Http\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\GroupController\:\:destroy\(\) should return App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response but returns Illuminate\\Http\\Response\.$#'
+			identifier: return.type
 			count: 2
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:index\\(\\) has invalid return type App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\GroupController\:\:index\(\) has invalid return type App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:index\\(\\) should return App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response but returns Illuminate\\\\Http\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\GroupController\:\:index\(\) should return App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response but returns Illuminate\\Http\\Response\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:index\\(\\) should return App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response but returns Illuminate\\\\View\\\\View\\.$#"
+			message: '#^Method App\\Http\\Controllers\\GroupController\:\:index\(\) should return App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response but returns Illuminate\\View\\View\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:store\\(\\) has invalid return type App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\GroupController\:\:store\(\) has invalid return type App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:store\\(\\) should return App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response but returns Illuminate\\\\Http\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\GroupController\:\:store\(\) should return App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response but returns Illuminate\\Http\\Response\.$#'
+			identifier: return.type
 			count: 2
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:update\\(\\) has invalid return type App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\GroupController\:\:update\(\) has invalid return type App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:update\\(\\) should return App\\\\Http\\\\Controllers\\\\Symfony\\\\Component\\\\HttpFoundation\\\\Response but returns Illuminate\\\\Http\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\GroupController\:\:update\(\) should return App\\Http\\Controllers\\Symfony\\Component\\HttpFoundation\\Response but returns Illuminate\\Http\\Response\.$#'
+			identifier: return.type
 			count: 2
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$groupService with type App\\\\Http\\\\Controllers\\\\App\\\\Services\\\\GroupServiceInterface is not subtype of native type App\\\\Services\\\\GroupServiceInterface\\.$#"
+			message: '#^PHPDoc tag @param for parameter \$request with type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\IndexGroupRequest is not subtype of native type App\\Http\\Requests\\Group\\IndexGroupRequest\.$#'
+			identifier: parameter.phpDocType
 			count: 1
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$request with type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\IndexGroupRequest is not subtype of native type App\\\\Http\\\\Requests\\\\Group\\\\IndexGroupRequest\\.$#"
+			message: '#^PHPDoc tag @param for parameter \$request with type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\StoreGroupRequest is not subtype of native type App\\Http\\Requests\\Group\\StoreGroupRequest\.$#'
+			identifier: parameter.phpDocType
 			count: 1
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$request with type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\StoreGroupRequest is not subtype of native type App\\\\Http\\\\Requests\\\\Group\\\\StoreGroupRequest\\.$#"
+			message: '#^PHPDoc tag @param for parameter \$request with type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\UpdateGroupRequest is not subtype of native type App\\Http\\Requests\\Group\\UpdateGroupRequest\.$#'
+			identifier: parameter.phpDocType
 			count: 1
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$request with type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\UpdateGroupRequest is not subtype of native type App\\\\Http\\\\Requests\\\\Group\\\\UpdateGroupRequest\\.$#"
+			message: '#^Parameter \$request of method App\\Http\\Controllers\\GroupController\:\:index\(\) has invalid type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\IndexGroupRequest\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^Parameter \\$groupService of method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:__construct\\(\\) has invalid type App\\\\Http\\\\Controllers\\\\App\\\\Services\\\\GroupServiceInterface\\.$#"
+			message: '#^Parameter \$request of method App\\Http\\Controllers\\GroupController\:\:store\(\) has invalid type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\StoreGroupRequest\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^Parameter \\$request of method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:index\\(\\) has invalid type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\IndexGroupRequest\\.$#"
+			message: '#^Parameter \$request of method App\\Http\\Controllers\\GroupController\:\:update\(\) has invalid type App\\Http\\Controllers\\App\\Http\\Requests\\Contact\\UpdateGroupRequest\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Http/Controllers/GroupController.php
 
 		-
-			message: "#^Parameter \\$request of method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:store\\(\\) has invalid type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\StoreGroupRequest\\.$#"
-			count: 1
-			path: app/Http/Controllers/GroupController.php
-
-		-
-			message: "#^Parameter \\$request of method App\\\\Http\\\\Controllers\\\\GroupController\\:\\:update\\(\\) has invalid type App\\\\Http\\\\Controllers\\\\App\\\\Http\\\\Requests\\\\Contact\\\\UpdateGroupRequest\\.$#"
-			count: 1
-			path: app/Http/Controllers/GroupController.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\Address\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			message: '#^PHPDoc type array of property App\\Models\\Address\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
 			count: 1
 			path: app/Models/Address.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\Contact\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			message: '#^PHPDoc type array of property App\\Models\\Contact\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
 			count: 1
 			path: app/Models/Contact.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\ContactGroup\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			message: '#^PHPDoc type array of property App\\Models\\ContactGroup\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
 			count: 1
 			path: app/Models/ContactGroup.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\Group\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			message: '#^PHPDoc type array of property App\\Models\\Group\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
 			count: 1
 			path: app/Models/Group.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\Phone\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			message: '#^PHPDoc type array of property App\\Models\\Phone\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
 			count: 1
 			path: app/Models/Phone.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\User\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			message: '#^PHPDoc type array of property App\\Models\\User\:\:\$casts is not covariant with PHPDoc type array\<string, string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$casts\.$#'
+			identifier: property.phpDocType
 			count: 1
 			path: app/Models/User.php
 
 		-
-			message: "#^Method App\\\\Notifications\\\\MyResetPasswordNotification\\:\\:toMail\\(\\) has invalid return type App\\\\Notifications\\\\Illuminate\\\\Notifications\\\\Messages\\\\MailMessage\\.$#"
+			message: '#^PHPDoc type array of property App\\Models\\User\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\User\:\:\$hidden is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$hidden\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Called ''env'' outside of the config directory which returns null when the config is cached, use ''config''\.$#'
+			identifier: larastan.noEnvCallsOutsideOfConfig
 			count: 1
 			path: app/Notifications/MyResetPasswordNotification.php
 
 		-
-			message: "#^Method App\\\\Notifications\\\\MyResetPasswordNotification\\:\\:toMail\\(\\) should return App\\\\Notifications\\\\Illuminate\\\\Notifications\\\\Messages\\\\MailMessage but returns Illuminate\\\\Notifications\\\\Messages\\\\MailMessage\\.$#"
+			message: '#^Method App\\Notifications\\MyResetPasswordNotification\:\:toMail\(\) has invalid return type App\\Notifications\\Illuminate\\Notifications\\Messages\\MailMessage\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Notifications/MyResetPasswordNotification.php
 
 		-
-			message: "#^PHPDoc tag @var above a method has no effect\\.$#"
+			message: '#^Method App\\Notifications\\MyResetPasswordNotification\:\:toMail\(\) should return App\\Notifications\\Illuminate\\Notifications\\Messages\\MailMessage but returns Illuminate\\Notifications\\Messages\\MailMessage\.$#'
+			identifier: return.type
 			count: 1
-			path: app/Providers/RouteServiceProvider.php
+			path: app/Notifications/MyResetPasswordNotification.php
 
 		-
-			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
+			message: '#^PHPDoc type array of property App\\Providers\\EventServiceProvider\:\:\$listen is not covariant with PHPDoc type array\<string, array\<int, string\>\> of overridden property Illuminate\\Foundation\\Support\\Providers\\EventServiceProvider\:\:\$listen\.$#'
+			identifier: property.phpDocType
 			count: 1
-			path: app/Providers/RouteServiceProvider.php
+			path: app/Providers/EventServiceProvider.php
 
 		-
-			message: "#^Method App\\\\Services\\\\ContactService\\:\\:destroy\\(\\) with return type void returns Illuminate\\\\Http\\\\Response but should not return anything\\.$#"
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Contact\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, ''ASC'' given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Repositories/ContactRepository.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, ''ASC'' given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Repositories/GroupRepository.php
+
+		-
+			message: '#^Method App\\Services\\ContactService\:\:destroy\(\) with return type void returns Illuminate\\Http\\Response but should not return anything\.$#'
+			identifier: return.void
 			count: 1
 			path: app/Services/ContactService.php
 
 		-
-			message: "#^Method App\\\\Services\\\\ContactService\\:\\:show\\(\\) should return array but returns Illuminate\\\\Http\\\\Response\\.$#"
+			message: '#^Method App\\Services\\ContactService\:\:show\(\) should return array but returns Illuminate\\Http\\Response\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Services/ContactService.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
 			count: 6
 			path: app/Services/ContactService.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Services\\\\GroupService\\:\\:\\$groupRepository\\.$#"
+			message: '#^Access to an undefined property App\\Services\\GroupService\:\:\$groupRepository\.$#'
+			identifier: property.notFound
 			count: 7
 			path: app/Services/GroupService.php
 
 		-
-			message: "#^Method App\\\\Services\\\\GroupService\\:\\:destroy\\(\\) with return type void returns Illuminate\\\\Http\\\\Response but should not return anything\\.$#"
+			message: '#^Method App\\Services\\GroupService\:\:destroy\(\) with return type void returns Illuminate\\Http\\Response but should not return anything\.$#'
+			identifier: return.void
 			count: 1
 			path: app/Services/GroupService.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$groupRepository with type App\\\\Services\\\\App\\\\Repositories\\\\GroupRepositoryInterface is not subtype of native type App\\\\Repositories\\\\GroupRepositoryInterface\\.$#"
+			message: '#^PHPDoc tag @param for parameter \$groupRepository with type App\\Services\\App\\Repositories\\GroupRepositoryInterface is not subtype of native type App\\Repositories\\GroupRepositoryInterface\.$#'
+			identifier: parameter.phpDocType
 			count: 1
 			path: app/Services/GroupService.php
 
 		-
-			message: "#^Parameter \\$groupRepository of method App\\\\Services\\\\GroupService\\:\\:__construct\\(\\) has invalid type App\\\\Services\\\\App\\\\Repositories\\\\GroupRepositoryInterface\\.$#"
+			message: '#^Parameter \$groupRepository of method App\\Services\\GroupService\:\:__construct\(\) has invalid type App\\Services\\App\\Repositories\\GroupRepositoryInterface\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Services/GroupService.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Services\\\\RegisterService\\:\\:\\$contactRepository\\.$#"
+			message: '#^Access to an undefined property App\\Services\\RegisterService\:\:\$contactRepository\.$#'
+			identifier: property.notFound
 			count: 2
 			path: app/Services/RegisterService.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Services\\\\RegisterService\\:\\:\\$groupRepository\\.$#"
+			message: '#^Access to an undefined property App\\Services\\RegisterService\:\:\$groupRepository\.$#'
+			identifier: property.notFound
 			count: 2
 			path: app/Services/RegisterService.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Services\\\\RegisterService\\:\\:\\$userRepository\\.$#"
+			message: '#^Access to an undefined property App\\Services\\RegisterService\:\:\$userRepository\.$#'
+			identifier: property.notFound
 			count: 2
 			path: app/Services/RegisterService.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$contactRepository with type App\\\\Services\\\\App\\\\Repositories\\\\ContactRepositoryInterface is not subtype of native type App\\\\Repositories\\\\ContactRepositoryInterface\\.$#"
+			message: '#^PHPDoc tag @param for parameter \$contactRepository with type App\\Services\\App\\Repositories\\ContactRepositoryInterface is not subtype of native type App\\Repositories\\ContactRepositoryInterface\.$#'
+			identifier: parameter.phpDocType
 			count: 1
 			path: app/Services/RegisterService.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$groupRepository with type App\\\\Services\\\\App\\\\Repositories\\\\GroupRepositoryInterface is not subtype of native type App\\\\Repositories\\\\GroupRepositoryInterface\\.$#"
+			message: '#^PHPDoc tag @param for parameter \$groupRepository with type App\\Services\\App\\Repositories\\GroupRepositoryInterface is not subtype of native type App\\Repositories\\GroupRepositoryInterface\.$#'
+			identifier: parameter.phpDocType
 			count: 1
 			path: app/Services/RegisterService.php
 
 		-
-			message: "#^Parameter \\$contactRepository of method App\\\\Services\\\\RegisterService\\:\\:__construct\\(\\) has invalid type App\\\\Services\\\\App\\\\Repositories\\\\ContactRepositoryInterface\\.$#"
+			message: '#^Parameter \$contactRepository of method App\\Services\\RegisterService\:\:__construct\(\) has invalid type App\\Services\\App\\Repositories\\ContactRepositoryInterface\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Services/RegisterService.php
 
 		-
-			message: "#^Parameter \\$groupRepository of method App\\\\Services\\\\RegisterService\\:\\:__construct\\(\\) has invalid type App\\\\Services\\\\App\\\\Repositories\\\\GroupRepositoryInterface\\.$#"
+			message: '#^Parameter \$groupRepository of method App\\Services\\RegisterService\:\:__construct\(\) has invalid type App\\Services\\App\\Repositories\\GroupRepositoryInterface\.$#'
+			identifier: class.notFound
 			count: 1
 			path: app/Services/RegisterService.php
