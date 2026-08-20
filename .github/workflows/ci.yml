@@ -24,6 +24,9 @@ jobs:
 
       - run: composer install --no-interaction --prefer-dist
 
+      - run: vendor/bin/pint --test
+      - run: vendor/bin/phpstan analyse --no-progress
+
       - run: cp .env.example .env
       - run: php artisan key:generate
 
