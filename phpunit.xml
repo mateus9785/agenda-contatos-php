@@ -21,8 +21,14 @@
         <server name="APP_ENV" value="testing"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
         <server name="CACHE_DRIVER" value="array"/>
-        <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
-        <!-- <server name="DB_DATABASE" value=":memory:"/> -->
+        <server name="DB_CONNECTION" value="sqlite"/>
+        <!-- A file, not :memory:. Migrations run once as a separate "php
+             artisan migrate" step before "artisan test", and :memory: is
+             wiped between those two process invocations. Several existing
+             test classes (tests/Unit/*Test.php) use DatabaseTransactions,
+             not RefreshDatabase, so they expect the schema to already exist
+             rather than migrating it themselves. -->
+        <server name="DB_DATABASE" value="database/testing.sqlite"/>
         <server name="MAIL_MAILER" value="array"/>
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
