@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # composer.lock is pinned to phpunit/phpspec-prophecy versions that
+      # cap out at PHP 8.0 (phpspec/prophecy 1.12.2 requires "<8.1"). This
+      # matches what's actually installable today; the Laravel/PHP upgrade
+      # (tracked separately) moves this to a newer matrix along with the
+      # lock file.
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: mbstring, pdo_sqlite, sqlite3, zip, bcmath
+          coverage: none
+
+      - run: composer install --no-interaction --prefer-dist
+
+      - run: cp .env.example .env
+      - run: php artisan key:generate
+
+      # phpunit.xml points DB_DATABASE at this file (not :memory:) because
+      # migrations run here, as a separate process, before `artisan test`
+      # starts a new one -- :memory: doesn't survive across that boundary.
+      # It also has to exist before `artisan migrate` runs the same way it
+      # would need to before pointing any tool at a fresh sqlite file.
+      - run: touch database/testing.sqlite
+      - name: Run migrations against the sqlite test database
+        run: php artisan migrate --force
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/testing.sqlite
+
+      - run: php artisan test
