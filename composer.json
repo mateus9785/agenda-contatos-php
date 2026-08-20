@@ -1,10 +1,10 @@
 {
-    "name": "laravel/laravel",
+    "name": "mateus9785/agenda-contatos-php",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Contacts manager API: users, contacts with phones/addresses/groups, and an OAuth integration with Conta Azul.",
     "keywords": [
-        "framework",
-        "laravel"
+        "laravel",
+        "contacts"
     ],
     "license": "MIT",
     "require": {
