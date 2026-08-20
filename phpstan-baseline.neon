@@ -256,82 +256,12 @@ parameters:
 			path: app/Providers/RouteServiceProvider.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Services\\\\ContactService\\:\\:\\$addressRepository\\.$#"
-			count: 6
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Services\\\\ContactService\\:\\:\\$contactGroupRepository\\.$#"
-			count: 6
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Services\\\\ContactService\\:\\:\\$contactRepository\\.$#"
-			count: 9
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Services\\\\ContactService\\:\\:\\$groupRepository\\.$#"
-			count: 3
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Services\\\\ContactService\\:\\:\\$phoneRepository\\.$#"
-			count: 6
-			path: app/Services/ContactService.php
-
-		-
 			message: "#^Method App\\\\Services\\\\ContactService\\:\\:destroy\\(\\) with return type void returns Illuminate\\\\Http\\\\Response but should not return anything\\.$#"
 			count: 1
 			path: app/Services/ContactService.php
 
 		-
 			message: "#^Method App\\\\Services\\\\ContactService\\:\\:show\\(\\) should return array but returns Illuminate\\\\Http\\\\Response\\.$#"
-			count: 1
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$addressRepository with type App\\\\Services\\\\App\\\\Repositories\\\\AddressRepositoryInterface is not subtype of native type App\\\\Repositories\\\\AddressRepositoryInterface\\.$#"
-			count: 1
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$contactGroupRepository with type App\\\\Services\\\\App\\\\Repositories\\\\ContactGroupRepositoryInterface is not subtype of native type App\\\\Repositories\\\\ContactGroupRepositoryInterface\\.$#"
-			count: 1
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$groupRepository with type App\\\\Services\\\\App\\\\Repositories\\\\GroupRepositoryInterface is not subtype of native type App\\\\Repositories\\\\GroupRepositoryInterface\\.$#"
-			count: 1
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$phoneRepository with type App\\\\Services\\\\App\\\\Repositories\\\\PhoneRepositoryInterface is not subtype of native type App\\\\Repositories\\\\PhoneRepositoryInterface\\.$#"
-			count: 1
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$contactService$#"
-			count: 1
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^Parameter \\$addressRepository of method App\\\\Services\\\\ContactService\\:\\:__construct\\(\\) has invalid type App\\\\Services\\\\App\\\\Repositories\\\\AddressRepositoryInterface\\.$#"
-			count: 1
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^Parameter \\$contactGroupRepository of method App\\\\Services\\\\ContactService\\:\\:__construct\\(\\) has invalid type App\\\\Services\\\\App\\\\Repositories\\\\ContactGroupRepositoryInterface\\.$#"
-			count: 1
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^Parameter \\$groupRepository of method App\\\\Services\\\\ContactService\\:\\:__construct\\(\\) has invalid type App\\\\Services\\\\App\\\\Repositories\\\\GroupRepositoryInterface\\.$#"
-			count: 1
-			path: app/Services/ContactService.php
-
-		-
-			message: "#^Parameter \\$phoneRepository of method App\\\\Services\\\\ContactService\\:\\:__construct\\(\\) has invalid type App\\\\Services\\\\App\\\\Repositories\\\\PhoneRepositoryInterface\\.$#"
 			count: 1
 			path: app/Services/ContactService.php
 
