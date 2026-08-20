@@ -36,7 +36,7 @@ class LoginTest extends TestCase
     /**
      * Carrega os dados necessários para os testes
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -49,7 +49,7 @@ class LoginTest extends TestCase
      *
      * @return void
      */
-    public function testUserLogin()
+    public function test_user_login()
     {
         $response = $this->withoutMiddleware(Cors::class)->post('/login', [
             'email' => $this->user->email,

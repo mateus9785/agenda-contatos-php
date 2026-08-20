@@ -3,12 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ConfirmsPasswords;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ConfirmPasswordController extends Controller
+class ConfirmPasswordController extends Controller implements HasMiddleware
 {
     use ConfirmsPasswords;
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -26,15 +34,5 @@ class ConfirmPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    protected $redirectTo = '/home';
 }

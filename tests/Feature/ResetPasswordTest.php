@@ -27,7 +27,7 @@ class ResetPasswordTest extends TestCase
     /**
      * Carrega os dados necessários para os testes
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -41,7 +41,7 @@ class ResetPasswordTest extends TestCase
      *
      * @return void
      */
-    public function testResetPassword()
+    public function test_reset_password()
     {
         $response = $this->route->post('/password/email', [
             'email' => $this->user->email,

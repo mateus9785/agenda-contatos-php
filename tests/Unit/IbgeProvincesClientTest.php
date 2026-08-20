@@ -12,7 +12,7 @@ class IbgeProvincesClientTest extends TestCase
     /**
      * @return void
      */
-    public function testGetProvinceCodesReturnsTheIso3166CodeOfEachState()
+    public function test_get_province_codes_returns_the_iso3166_code_of_each_state()
     {
         Http::fake([
             'www.geonames.org/*' => Http::response([
@@ -31,7 +31,7 @@ class IbgeProvincesClientTest extends TestCase
     /**
      * @return void
      */
-    public function testGetProvinceCodesThrowsWhenGeonamesRespondsWithAnError()
+    public function test_get_province_codes_throws_when_geonames_responds_with_an_error()
     {
         Http::fake([
             'www.geonames.org/*' => Http::response('unavailable', 503),

@@ -21,7 +21,7 @@ class RegisterTest extends TestCase
     /**
      * Carrega os dados necessários para os testes
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -33,7 +33,7 @@ class RegisterTest extends TestCase
      *
      * @return void
      */
-    public function testCreateRegister()
+    public function test_create_register()
     {
         $fake = Factory::create();
         $name = $fake->name;

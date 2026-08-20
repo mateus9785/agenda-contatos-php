@@ -7,18 +7,27 @@ use App\Http\Requests\Contact\ShowContactRequest;
 use App\Http\Requests\Contact\StoreContactRequest;
 use App\Http\Requests\Contact\UpdateContactRequest;
 use App\Services\ContactServiceInterface;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ContactController extends Controller
+class ContactController extends Controller implements HasMiddleware
 {
+    private ContactServiceInterface $contactService;
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+        ];
+    }
+
     /**
      * Cria uma nova intância do controller e faz injeção de dependência dos services
      *
-     * @param  App\Services\ContactServiceInterface  $contactService
      * @return void
      */
     public function __construct(ContactServiceInterface $contactService)
     {
-        $this->middleware('auth');
         $this->contactService = $contactService;
     }
 

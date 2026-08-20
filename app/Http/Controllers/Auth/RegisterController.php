@@ -3,14 +3,25 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use App\Models\User;
 use App\Services\RegisterServiceInterface;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Validator;
 
-class RegisterController extends Controller
+class RegisterController extends Controller implements HasMiddleware
 {
     use RegistersUsers;
+
+    private RegisterServiceInterface $registerService;
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('guest'),
+        ];
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -28,16 +39,10 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/home';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct(RegisterServiceInterface $registerService)
     {
-        $this->middleware('guest');
         $this->registerService = $registerService;
     }
 
@@ -58,7 +63,7 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @return \App\Models\User
+     * @return User
      */
     protected function create(array $data)
     {
