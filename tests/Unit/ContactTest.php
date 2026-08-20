@@ -7,6 +7,7 @@ use App\Models\Group;
 use App\Models\User;
 use App\Services\ContactService;
 use Faker\Factory;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -46,6 +47,18 @@ class ContactTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        // testShowContact() goes through ContactService::show(), which asks
+        // IbgeProvincesClient for the state list -- faking it here keeps the
+        // test suite from depending on geonames.org actually being up.
+        Http::fake([
+            'www.geonames.org/*' => Http::response([
+                'geonames' => [
+                    ['adminCodes1' => ['ISO3166_2' => 'SP']],
+                    ['adminCodes1' => ['ISO3166_2' => 'RJ']],
+                ],
+            ]),
+        ]);
 
         $this->faker = Factory::create();
         $this->contactService = app(ContactService::class);

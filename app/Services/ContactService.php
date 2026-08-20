@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Clients\IbgeProvincesClientInterface;
 use App\Repositories\AddressRepositoryInterface;
 use App\Repositories\ContactGroupRepositoryInterface;
 use App\Repositories\ContactRepositoryInterface;
@@ -11,14 +12,21 @@ use Illuminate\Support\Facades\Auth;
 
 class ContactService implements ContactServiceInterface
 {
+    private ContactRepositoryInterface $contactRepository;
+
+    private AddressRepositoryInterface $addressRepository;
+
+    private ContactGroupRepositoryInterface $contactGroupRepository;
+
+    private PhoneRepositoryInterface $phoneRepository;
+
+    private GroupRepositoryInterface $groupRepository;
+
+    private IbgeProvincesClientInterface $ibgeProvincesClient;
+
     /**
      * Cria uma nova intância do service e faz injeção de dependência dos services
      *
-     * @param  App\Repositories\ContactRepositoryInterface  $contactService
-     * @param  App\Repositories\AddressRepositoryInterface  $addressRepository
-     * @param  App\Repositories\ContactGroupRepositoryInterface  $contactGroupRepository
-     * @param  App\Repositories\PhoneRepositoryInterface  $phoneRepository
-     * @param  App\Repositories\GroupRepositoryInterface  $groupRepository
      * @return void
      */
     public function __construct(
@@ -26,13 +34,15 @@ class ContactService implements ContactServiceInterface
         AddressRepositoryInterface $addressRepository,
         ContactGroupRepositoryInterface $contactGroupRepository,
         PhoneRepositoryInterface $phoneRepository,
-        GroupRepositoryInterface $groupRepository
+        GroupRepositoryInterface $groupRepository,
+        IbgeProvincesClientInterface $ibgeProvincesClient
     ) {
         $this->contactRepository = $contactRepository;
         $this->addressRepository = $addressRepository;
         $this->contactGroupRepository = $contactGroupRepository;
         $this->phoneRepository = $phoneRepository;
         $this->groupRepository = $groupRepository;
+        $this->ibgeProvincesClient = $ibgeProvincesClient;
     }
 
     /**
@@ -72,10 +82,7 @@ class ContactService implements ContactServiceInterface
 
         $groups = $this->groupRepository->findAll($user_id);
 
-        $provinces_ibge = file_get_contents('http://www.geonames.org/childrenJSON?geonameId=3469034');
-        $provinces = array_map(function ($province) {
-            return $province->adminCodes1->ISO3166_2;
-        }, json_decode($provinces_ibge)->geonames);
+        $provinces = $this->ibgeProvincesClient->getProvinceCodes();
 
         if ($id) {
             $contact = $this->contactRepository->findById($id, $user_id);
