@@ -1,21 +1,21 @@
-# Agenda de Contatos — API
+# Agenda de Contatos: API
 
 ![CI](https://github.com/mateus9785/agenda-contatos-php/actions/workflows/ci.yml/badge.svg)
 
-Laravel API for a contacts manager: users, contacts (with phones, addresses
-and groups), password reset by email, and an OAuth integration with
-[Conta Azul](https://contaazul.com/) that pulls IBGE province codes for the
-address form.
+API Laravel para um gerenciador de contatos: usuários, contatos (com
+telefones, endereços e grupos), redefinição de senha por e-mail e uma
+integração OAuth com [Conta Azul](https://contaazul.com/) que busca os
+códigos de estados do IBGE para o formulário de endereço.
 
 ## Stack
 
-- **Laravel 13** on **PHP 8.3**
-- **MySQL** via Eloquent — primary datastore
-- **PHPUnit 11** — unit + feature tests, run against a sqlite file in CI
-- **Laravel Pint** + **Larastan** (PHPStan) — enforced in CI, not just documented
-- **Laravel Mix** for the small amount of first-party JS/SCSS (Bootstrap-based auth views)
+- **Laravel 13** em **PHP 8.3**
+- **MySQL** via Eloquent, banco de dados principal
+- **PHPUnit 11**: testes unitários e de feature, executados contra um arquivo sqlite no CI
+- **Laravel Pint** e **Larastan** (PHPStan): aplicados no CI, não apenas documentados
+- **Laravel Mix** para o pouco JS/SCSS próprio (telas de autenticação baseadas em Bootstrap)
 
-## Architecture
+## Arquitetura
 
 ```
 routes/  ->  Controllers  ->  Services  ->  Repositories  ->  Models (Eloquent)
@@ -23,53 +23,62 @@ routes/  ->  Controllers  ->  Services  ->  Repositories  ->  Models (Eloquent)
                               Clients/ (outbound HTTP to third parties)
 ```
 
-- **Controllers** validate input via Form Request classes and delegate to a
-  **Service** — no Eloquent queries here.
-- **Services** hold the business rules and orchestrate calls to a
-  **Repository**. `ContactService` is also the one place that talks to an
-  external HTTP client (`IbgeProvincesClientInterface`), never directly to
-  `file_get_contents`/Guzzle.
-- **Repositories** are the only classes that talk to Eloquent models
-  directly, behind an interface bound in `RepositoryServiceProvider`.
-- **Clients** (`app/Clients`) wrap outbound calls to third-party HTTP APIs
-  behind an interface, the same DI pattern as repositories — currently just
-  `IbgeProvincesClient` (geonames.org), bound in `ClientServiceProvider`.
-- Controllers that need `auth` implement `Illuminate\Routing\Controllers\HasMiddleware`
-  with a static `middleware()` method — the Laravel 11+ replacement for the
-  old `$this->middleware(...)` constructor call, which the base `Controller`
-  class no longer provides.
+- **Controllers** validam a entrada via classes Form Request e delegam para
+  um **Service**, sem consultas Eloquent aqui.
+- **Services** concentram as regras de negócio e orquestram chamadas a um
+  **Repository**. `ContactService` também é o único lugar que fala com um
+  cliente HTTP externo (`IbgeProvincesClientInterface`), nunca diretamente
+  com `file_get_contents`/Guzzle.
+- **Repositories** são as únicas classes que falam diretamente com os
+  models Eloquent, atrás de uma interface vinculada em
+  `RepositoryServiceProvider`.
+- **Clients** (`app/Clients`) encapsulam chamadas HTTP de saída para APIs de
+  terceiros atrás de uma interface, seguindo o mesmo padrão de injeção de
+  dependência dos repositories. Atualmente há apenas o `IbgeProvincesClient`
+  (geonames.org), vinculado em `ClientServiceProvider`.
+- Controllers que precisam de `auth` implementam
+  `Illuminate\Routing\Controllers\HasMiddleware` com um método estático
+  `middleware()`, que é a substituição do Laravel 11+ para a antiga chamada
+  `$this->middleware(...)` no construtor, já que a classe base `Controller`
+  não a disponibiliza mais.
 
-## Technical Decisions
+## Decisões Técnicas
 
-- **Laravel 13, not 11.** The original plan was Laravel 11 (a smaller jump
-  from 8), but `composer audit` on a clean Laravel 11 install turned up real,
-  unpatched CVEs affecting every 11.x release (e.g. CVE-2026-48019, fixed
-  only in 12.60+/13.10+). Latest (13.17+) audits clean. For a repo meant to
-  demonstrate senior judgment, shipping a version with a known open CVE
-  wasn't the right trade-off just to save a smaller migration diff.
-- **PHPStan errors get baselined, not silently fixed in bulk.** Level 5
-  surfaced ~130 instances of two systemic-but-harmless patterns (undeclared
-  constructor properties relying on PHP's now-deprecated dynamic property
-  creation, and `@param`/`@return` docblock types missing a leading
-  backslash that PHPStan then resolves against the wrong namespace).
-  `phpstan-baseline.neon` records them as visible, greppable debt instead of
-  a wall of unrelated changes bolted onto whatever PR happened to add the
-  tool — files get cleaned up as they're touched for other reasons (see the
-  `IbgeProvincesClient` and Laravel 13 PRs, which each shrank the baseline
-  as a side effect of work already happening there).
-- **Tests run against a sqlite *file*, not `:memory:`.** Migrations run as a
-  separate `php artisan migrate` process before `artisan test` starts a new
-  one, and `:memory:` doesn't survive across that boundary. This matters
-  concretely here: `tests/Unit/*Test.php` use `DatabaseTransactions`, not
-  `RefreshDatabase`, so they expect the schema to already exist rather than
-  migrating it themselves.
-- **`IbgeProvincesClient` instead of `file_get_contents` in `ContactService`.**
-  The original code called geonames.org directly from a service method: no
-  injected client, no error handling (a failed request produced a null
-  dereference), no timeout, untestable without a live network call. Wrapping
-  it behind an interface + Laravel's `Http` facade fixed all four at once.
+- **Laravel 13, não 11.** O plano original era usar Laravel 11 (um salto
+  menor a partir da versão 8), mas o `composer audit` em uma instalação
+  limpa do Laravel 11 revelou CVEs reais e não corrigidos, afetando todas
+  as versões 11.x (por exemplo, CVE-2026-48019, corrigido apenas em
+  12.60+/13.10+). A versão mais recente (13.17+) passa limpa na auditoria.
+  Publicar uma versão com um CVE aberto conhecido só para economizar um
+  diff de migração menor não era a escolha certa.
+- **Erros do PHPStan vão para a baseline, não são corrigidos em massa
+  silenciosamente.** O nível 5 revelou cerca de 130 ocorrências de dois
+  padrões sistêmicos, porém inofensivos (propriedades de construtor não
+  declaradas, que dependem da criação dinâmica de propriedades hoje
+  descontinuada no PHP, e tipos em docblocks `@param`/`@return` sem a
+  barra invertida inicial, que faz o PHPStan resolvê-los contra o
+  namespace errado). O `phpstan-baseline.neon` registra isso como dívida
+  técnica visível e pesquisável, em vez de uma leva de mudanças não
+  relacionadas encaixada em qualquer PR que por acaso tenha adicionado a
+  ferramenta. Os arquivos vão sendo limpos conforme são tocados por outros
+  motivos (veja os PRs do `IbgeProvincesClient` e do Laravel 13, que
+  reduziram a baseline como efeito colateral de um trabalho que já estava
+  sendo feito ali).
+- **Os testes rodam contra um *arquivo* sqlite, não `:memory:`.** As
+  migrations rodam em um processo separado (`php artisan migrate`) antes
+  que o `artisan test` inicie outro processo, e `:memory:` não sobrevive a
+  essa fronteira. Isso importa na prática aqui: `tests/Unit/*Test.php` usa
+  `DatabaseTransactions`, não `RefreshDatabase`, então esses testes esperam
+  que o schema já exista em vez de migrá-lo por conta própria.
+- **`IbgeProvincesClient` em vez de `file_get_contents` no `ContactService`.**
+  O código original chamava geonames.org diretamente de um método do
+  service: sem cliente injetado, sem tratamento de erro (uma requisição
+  que falhasse gerava uma desreferência de null), sem timeout, e impossível
+  de testar sem uma chamada de rede real. Encapsular isso atrás de uma
+  interface e da facade `Http` do Laravel resolveu os quatro problemas de
+  uma vez.
 
-## Setup
+## Configuração
 
 ```bash
 composer install
@@ -80,7 +89,7 @@ npm install && npm run dev   # first-party JS/SCSS for the auth views
 php artisan serve
 ```
 
-## Testing
+## Testes
 
 ```bash
 touch database/testing.sqlite
@@ -90,20 +99,23 @@ vendor/bin/pint --test
 vendor/bin/phpstan analyse --memory-limit=512M
 ```
 
-CI (`.github/workflows/ci.yml`) runs this exact sequence on every push and PR.
+O CI (`.github/workflows/ci.yml`) executa exatamente essa sequência em
+cada push e PR.
 
-## Known limitations / Roadmap
+## Limitações conhecidas / Próximos passos
 
-- `phpstan-baseline.neon` still carries ~81 pre-existing entries (down from
-  132 at the start of this cleanup) — tracked, not hidden, see
-  [Technical Decisions](#technical-decisions).
-- Frontend assets still build with Laravel Mix (webpack), not Vite — Laravel
-  13's default skeleton ships Vite, but Mix is still a maintained,
-  independently-versioned tool and migrating it wasn't part of this pass.
-- `config/app.php` sets `'locale' => 'pt'`, but `resources/lang/` only has an
-  `en/` directory — translations silently fall back to `fallback_locale`.
-  Pre-existing gap, not introduced by this cleanup.
+- `phpstan-baseline.neon` ainda carrega cerca de 81 entradas pré-existentes
+  (reduzido de 132 no início dessa limpeza). Isso é rastreado, não
+  escondido, veja [Decisões Técnicas](#decisões-técnicas).
+- Os assets de frontend ainda são construídos com Laravel Mix (webpack),
+  não Vite. O skeleton padrão do Laravel 13 já vem com Vite, mas o Mix
+  ainda é uma ferramenta mantida e versionada de forma independente, e
+  migrar isso não fez parte desta etapa.
+- `config/app.php` define `'locale' => 'pt'`, mas `resources/lang/` só tem
+  um diretório `en/`, então as traduções caem silenciosamente para o
+  `fallback_locale`. É uma lacuna pré-existente, não introduzida por esta
+  limpeza.
 
-## License
+## Licença
 
 [MIT](./LICENSE)
